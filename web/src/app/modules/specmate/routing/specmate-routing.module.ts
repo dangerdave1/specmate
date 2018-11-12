@@ -30,6 +30,9 @@ import { PageNotFoundModule } from '../../views/main/static/modules/page-not-fou
 import { Welcome } from '../../views/main/static/modules/welcome-page/components/welcome.component';
 import { WelcomePageModule } from '../../views/main/static/modules/welcome-page/welcome-page.module';
 import { UnsavedChangesGuard } from '../guards/unsaved-changes-guard';
+import { BDDModel } from '../../../model/BDDModel';
+import { BDDModelDetails } from '../../views/main/editors/modules/bdd-model-editor/components/bdd-model-details.component';
+import { BDDModelEditorModule } from '../../views/main/editors/modules/bdd-model-editor/bdd-model-editor.module';
 
 const routes: Routes = [
   {
@@ -38,12 +41,17 @@ const routes: Routes = [
     canDeactivate: [UnsavedChangesGuard],
     canActivate: [UserPermissionsGuard]
   }, {
+    path: Url.basePath(BDDModel) + '/:url',
+    component: BDDModelDetails,
+    canDeactivate: [UnsavedChangesGuard],
+    canActivate: [UserPermissionsGuard]
+  }, {
     path: Url.basePath(Requirement) + '/:url',
     component: RequirementsDetails,
     canDeactivate: [UnsavedChangesGuard],
     canActivate: [UserPermissionsGuard]
   }, {
-    path: Url.basePath( Folder ) + '/:url',
+    path: Url.basePath(Folder) + '/:url',
     component: FolderDetails,
     canDeactivate: [UnsavedChangesGuard],
     canActivate: [UserPermissionsGuard]
@@ -74,6 +82,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     CEGModelEditorModule,
     ProcessEditorModule,
+    BDDModelEditorModule,
     RequirementsDetailsModule,
     FolderDetailsModule,
     TestProcedureEditorModule,

@@ -484,5 +484,90 @@ export class MetaInfo {
 	];
 	public static Operation: FieldMetaItem[] = [
 	];
+	public static BDDNode: FieldMetaItem[] = [
+			{
+			name: "name",
+			shortDesc: 'Name',
+			longDesc: '',
+			required: true,
+			type: 'text',
+			position: '0'		
+		},			{
+			name: "description",
+			shortDesc: 'Description',
+			longDesc: '',
+			required: false,
+			type: 'longText',
+			rows: '8',
+			position: '100'		
+		}	];
+	public static BDDTerminalNode: FieldMetaItem[] = [
+			{
+			name: "name",
+			shortDesc: 'Name',
+			longDesc: '',
+			required: true,
+			type: 'text',
+			position: '0'		
+		},			{
+			name: "description",
+			shortDesc: 'Description',
+			longDesc: '',
+			required: false,
+			type: 'longText',
+			rows: '8',
+			position: '100'		
+		}	];
+	public static BDDNoTerminalNode: FieldMetaItem[] = [
+			{
+			name: "name",
+			shortDesc: 'Name',
+			longDesc: '',
+			required: true,
+			type: 'text',
+			position: '0'		
+		},			{
+			name: "description",
+			shortDesc: 'Description',
+			longDesc: '',
+			required: false,
+			type: 'longText',
+			rows: '8',
+			position: '100'		
+		}	];
+	public static BDDConnection: FieldMetaItem[] = [
+			{
+			name: "name",
+			shortDesc: 'Name',
+			longDesc: '',
+			required: true,
+			type: 'text',
+			position: '0'		
+		},			{
+			name: "description",
+			shortDesc: 'Description',
+			longDesc: '',
+			required: false,
+			type: 'longText',
+			rows: '8',
+			position: '100'		
+		}	];
+	public static BDDModel: FieldMetaItem[] = [
+			{
+			name: "name",
+			shortDesc: 'Name',
+			longDesc: '',
+			required: true,
+			type: 'text',
+			position: '0'		
+		},			{
+			name: "description",
+			shortDesc: 'Description',
+			longDesc: '',
+			required: false,
+			type: 'longText',
+			rows: '8',
+			position: '100'		
+		}	];
 }
 

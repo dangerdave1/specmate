@@ -13,6 +13,7 @@ import { CEGModel } from '../../../../../../model/CEGModel';
 import { Process } from '../../../../../../model/Process';
 import { AuthenticationService } from '../../../../main/authentication/modules/auth/services/authentication.service';
 import { UserToken } from '../../../../main/authentication/base/user-token';
+import { BDDModel } from '../../../../../../model/BDDModel';
 
 @Injectable()
 export class AdditionalInformationService {
@@ -128,6 +129,6 @@ export class AdditionalInformationService {
     }
 
     private isModel(element: IContainer): boolean {
-        return Type.is(element, CEGModel) || Type.is(element, Process);
+        return Type.is(element, CEGModel) || Type.is(element, Process) || Type.is(element, BDDModel);
     }
 }

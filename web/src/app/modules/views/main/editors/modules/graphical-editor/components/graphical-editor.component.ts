@@ -23,6 +23,7 @@ import { IKeyboardTool } from '../../tool-pallette/tools/IKeyboardTool';
 import { IDoubleClickTool } from '../../tool-pallette/tools/IDoubleClickTool';
 import { SelectionRect } from '../../../../../side/modules/selected-element/util/selection-rect';
 import { ClipboardService } from '../../tool-pallette/services/clipboard-service';
+import { BDDModel } from '../../../../../../../model/BDDModel';
 
 @Component({
     moduleId: module.id.toString(),
@@ -254,6 +255,10 @@ export class GraphicalEditor {
 
     public get isCEGModel(): boolean {
         return Type.is(this.model, CEGModel);
+    }
+
+    public get isBDDModel(): boolean {
+        return Type.is(this.model, BDDModel);
     }
 
     public get isProcessModel(): boolean {

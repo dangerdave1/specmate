@@ -20,10 +20,15 @@ public abstract class TestCaseGeneratorBase<M extends IContainer, N extends IMod
 
 	@SuppressWarnings("unchecked")
 	public TestCaseGeneratorBase(TestSpecification specification, Class<M> modelClass, Class<N> nodeClass) {
-		AssertUtil.assertInstanceOf(specification.eContainer(), modelClass);
+		//AssertUtil.assertInstanceOf(specification.eContainer(), modelClass);
 		this.specification = specification;
-		this.model = (M) specification.eContainer();
-		this.nodes = (List<IModelNode>) SpecmateEcoreUtil.pickInstancesOf(model.getContents(), IModelNode.class);
+		try{
+			this.model = (M) specification.eContainer();
+			this.nodes = (List<IModelNode>) SpecmateEcoreUtil.pickInstancesOf(model.getContents(), IModelNode.class);
+		}catch(NullPointerException npe){
+			System.out.println("Model and nodes still need to be set");
+		}
+		
 	}
 
 	/** Adds necessary parameters to the specification */

@@ -1,5 +1,6 @@
 {
 	"Action": "Aktion",
+	"BDDModels": "",
 	"Cause-EffectModels": "Ursache-Wirkungs-Modelle",
 	"Changed": "Verändert",
 	"ChangedTo": "geändert nach",
@@ -53,6 +54,7 @@
 	"addInputColumn": "Eingabespalte hinzufügen",
 	"addOutputColumn": "Ausgabespalte hinzufügen",
 	"attentionNumberOfTestCasesWillBeDeleted": "Achtung: {{num}} Testfälle werden gelöscht!",
+	"bddModel": "",
 	"cancel": "Abbrechen",
 	"causeEffectGraph": "Ursache-Wirkungs-Diagramm",
 	"chooseLanguage": "Sprache ändern",
@@ -164,6 +166,11 @@
 	},
 	"toggleLog": "Log ein/ausblenden",
 	"tools": {
+		"addBdd0Connection": "0-Verbindung",
+		"addBdd1Connection": "1-Verbindung",
+		"addBddNoTerminalNode": "Knoten",
+		"addBddTerminal0Node": "0-Terminal",
+		"addBddTerminal1Node": "1-Terminal",
 		"addCegConnection": "Verbindung",
 		"addCegNode": "Knoten",
 		"addDecision": "Entscheidung",
@@ -173,7 +180,8 @@
 		"addStep": "Schritt",
 		"delete": "Löschen",
 		"move": "Verschieben",
-		"select": "Auswählen"
+		"select": "Auswählen",
+		"tools": {}
 	},
 	"triedToCheckExistenceOfUnknownElement": "Versuch, Existenz eines unbekannten Elements zu prüfen",
 	"triedToReadContensForVirtualElement": "Versuch, Inhalt eines virtuellen Elements zu laden",

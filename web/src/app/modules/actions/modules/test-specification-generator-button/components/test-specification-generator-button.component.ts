@@ -22,6 +22,7 @@ import { ValidationResult } from '../../../../../validation/validation-result';
 import { TranslateService } from '@ngx-translate/core';
 import { ElementFactoryBase } from '../../../../../factory/element-factory-base';
 import { LoggingService } from '../../../../views/side/modules/log-list/services/logging.service';
+import { BDDModel } from '../../../../../model/BDDModel';
 
 @Component({
     moduleId: module.id.toString(),
@@ -34,14 +35,14 @@ export class TestSpecificationGeneratorButton {
 
     private contents: IContainer[];
 
-    private _model: CEGModel | Process;
+    private _model: CEGModel | Process | BDDModel;
 
-    public get model(): CEGModel | Process {
+    public get model(): CEGModel | Process | BDDModel {
         return this._model;
     }
 
     @Input()
-    public set model(model: CEGModel | Process) {
+    public set model(model: CEGModel | Process | BDDModel) {
         if (!model) {
             return;
         }

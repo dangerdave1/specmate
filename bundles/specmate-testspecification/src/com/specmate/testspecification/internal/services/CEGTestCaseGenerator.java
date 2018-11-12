@@ -50,6 +50,14 @@ public class CEGTestCaseGenerator extends TestCaseGeneratorBase<CEGModel, CEGNod
 	public CEGTestCaseGenerator(TestSpecification specification) {
 		super(specification, CEGModel.class, CEGNode.class);
 	}
+	
+	public void setModel(CEGModel model) {
+		this.model = model;
+	}
+	
+	public void setNodes(List<IModelNode> nodes) {
+		this.nodes = nodes;
+	}
 
 	@Override
 	protected void generateParameters() {

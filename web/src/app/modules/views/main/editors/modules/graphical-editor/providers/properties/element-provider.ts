@@ -9,6 +9,9 @@ import { CEGConnection } from '../../../../../../../../model/CEGConnection';
 import { ProcessConnection } from '../../../../../../../../model/ProcessConnection';
 import { Arrays } from '../../../../../../../../util/arrays';
 import { Type } from '../../../../../../../../util/type';
+import { BDDNoTerminalNode } from '../../../../../../../../model/BDDNoTerminalNode';
+import { BDDTerminalNode } from '../../../../../../../../model/BDDTerminalNode';
+import { BDDConnection } from '../../../../../../../../model/BDDConnection';
 
 export class ElementProvider extends ProviderBase {
 
@@ -36,6 +39,8 @@ export class ElementProvider extends ProviderBase {
             return [CEGNode];
         } else if (this.isProcessModel) {
             return [ProcessStep, ProcessDecision, ProcessStart, ProcessEnd];
+        } else if (this.isBDDModel) {
+            return [BDDNoTerminalNode, BDDTerminalNode];
         }
     }
 
@@ -44,6 +49,8 @@ export class ElementProvider extends ProviderBase {
             return [CEGConnection];
         } else if (this.isProcessModel) {
             return [ProcessConnection];
+        } else if (this.isBDDModel) {
+            return [BDDConnection];
         }
     }
 

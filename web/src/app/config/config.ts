@@ -70,6 +70,17 @@ export class Config {
     public static CEG_NEW_CONNECTION_NAME = 'New Connection';
     public static CEG_NEW_CONNECTION_DESCRIPTION = '';
 
+    public static BDD_NEW_MODEL_NAME = 'New Model';
+    public static BDD_NEW_MODEL_DESCRIPTION = '';
+
+    public static BDD_NEW_CONNECTION_NAME = 'New Connection';
+    public static BDD_NEW_CONNECTION_DESCRIPTION = '';
+
+    public static BDD_NEW_NODE_NAME = 'New Node';
+    public static BDD_NEW_NODE_DESCRIPTION = '';
+    public static BDD_NODE_NEW_VARIABLE = 'variable';
+    public static BDD_NODE_NEW_CONDITION = 'is present';
+
     public static PROCESS_DECISION_NODE_DIM = 30;
     public static PROCESS_START_END_NODE_RADIUS = 15;
     public static PROCESS_NEW_PROCESS_NAME = 'New Process';

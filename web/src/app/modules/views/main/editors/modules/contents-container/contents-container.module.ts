@@ -11,6 +11,7 @@ import { ProcessModelContainer } from './components/process-model-container.comp
 import { TestSpecificationContainer } from './components/test-specification-container.component';
 import { RelatedRequirementsContainer } from './components/related-requirements-container.component';
 import { FolderContainer } from './components/folder-container.component';
+import { BDDModelContainer } from './components/bdd-model-container.component';
 
 @NgModule({
     imports: [
@@ -21,8 +22,22 @@ import { FolderContainer } from './components/folder-container.component';
         IconsModule,
         TranslateModule
     ],
-    exports: [CEGModelContainer, ProcessModelContainer, TestSpecificationContainer, RelatedRequirementsContainer, FolderContainer],
-    declarations: [CEGModelContainer, ProcessModelContainer, TestSpecificationContainer, RelatedRequirementsContainer, FolderContainer],
+    exports: [
+        CEGModelContainer,
+        BDDModelContainer,
+        ProcessModelContainer,
+        TestSpecificationContainer,
+        RelatedRequirementsContainer,
+        FolderContainer
+    ],
+    declarations: [
+        CEGModelContainer,
+        BDDModelContainer,
+        ProcessModelContainer,
+        TestSpecificationContainer,
+        RelatedRequirementsContainer,
+        FolderContainer
+    ],
     providers: [],
 })
 export class ContentsContainerModule { }

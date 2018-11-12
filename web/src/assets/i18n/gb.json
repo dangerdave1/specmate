@@ -1,5 +1,6 @@
 {
 	"Action": "Action",
+	"BDDModels": "",
 	"Cause-EffectModels": "Cause-Effect Models",
 	"Changed": "Changed",
 	"ChangedTo": "changed to",
@@ -53,6 +54,7 @@
 	"addInputColumn": "Add input column",
 	"addOutputColumn": "Add output column",
 	"attentionNumberOfTestCasesWillBeDeleted": "Warning: {{num}} testcases will be deleted!",
+	"bddModel": "",
 	"cancel": "Cancel",
 	"causeEffectGraph": "Cause Effect Graph",
 	"chooseLanguage": "Choose Language",

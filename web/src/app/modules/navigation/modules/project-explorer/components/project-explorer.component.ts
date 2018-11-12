@@ -9,7 +9,7 @@ import { SpecmateDataService } from '../../../../data/modules/data-service/servi
 import { NavigatorService } from '../../navigator/services/navigator.service';
 import { AuthenticationService } from '../../../../views/main/authentication/modules/auth/services/authentication.service';
 import { Search } from '../../../../../util/search';
-import { TranslateService } from '../../../../../../../node_modules/@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { Config } from '../../../../../config/config';
 
 

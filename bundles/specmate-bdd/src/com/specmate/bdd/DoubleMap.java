@@ -1,5 +1,6 @@
 package com.specmate.bdd;
 
+import java.util.HashMap;
 import java.util.Map;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -11,6 +12,11 @@ public class DoubleMap {
 	//mapping from (variable, condition) pair to index
 	private Map<Pair<String, String>, Integer> pair2index;
 	
+	public DoubleMap(){
+		index2pair = new HashMap<>();
+		pair2index = new HashMap<>();
+	}
+	
 	public void add(Pair<String, String> pair, int index){
 		index2pair.put(index, pair);
 		pair2index.put(pair, index);
@@ -21,6 +27,13 @@ public class DoubleMap {
 	 */
 	public boolean hasPair(Pair<String, String> pair){
 		if(pair2index.containsKey(pair)){
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean hasIndex(int index){
+		if(index2pair.containsKey(index)){
 			return true;
 		}
 		return false;
@@ -43,8 +56,5 @@ public class DoubleMap {
 	@Override
 	public String toString(){
 		return index2pair.toString();
-	}
-	
-	
-
+	}	
 }

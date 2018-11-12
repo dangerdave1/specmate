@@ -15,6 +15,7 @@ import { DOCUMENT } from '@angular/platform-browser';
 import * as $ from 'jquery';
 import { Key } from '../../../../../util/keycode';
 import { Config } from '../../../../../config/config';
+import { BDDModel } from '../../../../../model/BDDModel';
 
 @Component({
     moduleId: module.id.toString(),
@@ -148,6 +149,10 @@ export class ElementTree implements OnInit {
         return Type.is(this.element, CEGModel);
     }
 
+    public get isBDDModelNode(): boolean {
+        return Type.is(this.element, BDDModel);
+    }
+
     public get isFolderNode(): boolean {
         return Type.is(this.element, Folder);
     }
@@ -184,7 +189,7 @@ export class ElementTree implements OnInit {
     }
 
     public get showElement(): boolean {
-        return this.isCEGModelNode || this.isProcessNode || this.isRequirementNode
+        return this.isCEGModelNode || this.isBDDModelNode || this.isProcessNode || this.isRequirementNode
             || this.isTestSpecificationNode || this.isFolderNode || this.isTestProcedureNode;
     }
 

@@ -12,6 +12,8 @@ export class NameProvider extends ProviderBase {
             return this.translate.instant('causeEffectGraph');
         } else if (this.isProcessModel) {
             return this.translate.instant('processModel');
+        } else if (this.isBDDModel) {
+            return this.translate.instant('bddModel');
         }
     }
 }

@@ -9,19 +9,27 @@ import { ProcessEnd } from '../../../../../../../../model/ProcessEnd';
 import { RectangularLineCoordsProvider } from './rectangular-line-coords-provider';
 import { DiamondLineCoordsProvider } from './diamond-line-coords-provider';
 import { CircularLineCoordsProvider } from './circular-line-coords-provider';
+import { BDDTerminalNode } from '../../../../../../../../model/BDDTerminalNode';
+import { BDDNoTerminalNode } from '../../../../../../../../model/BDDNoTerminalNode';
 
 export class LineCoordinateProvider {
 
     public static provide(
-        type: {className: string},
-        source: {x: number, y: number},
-        target: {x: number, y: number}): LineCoordsProviderBase {
+        type: { className: string },
+        source: { x: number, y: number },
+        target: { x: number, y: number }): LineCoordsProviderBase {
 
         if (Type.is(type, CEGNode)) {
-            return new RectangularLineCoordsProvider(source, target, {width: Config.CEG_NODE_WIDTH, height: Config.CEG_NODE_HEIGHT});
+            return new RectangularLineCoordsProvider(source, target, { width: Config.CEG_NODE_WIDTH, height: Config.CEG_NODE_HEIGHT });
+        }
+        if (Type.is(type, BDDTerminalNode)) {
+            return new RectangularLineCoordsProvider(source, target, { width: Config.CEG_NODE_WIDTH, height: Config.CEG_NODE_HEIGHT });
+        }
+        if (Type.is(type, BDDNoTerminalNode)) {
+            return new RectangularLineCoordsProvider(source, target, { width: Config.CEG_NODE_WIDTH, height: Config.CEG_NODE_HEIGHT });
         }
         if (Type.is(type, ProcessStep)) {
-            return new RectangularLineCoordsProvider(source, target, {width: Config.CEG_NODE_WIDTH, height: Config.CEG_NODE_HEIGHT});
+            return new RectangularLineCoordsProvider(source, target, { width: Config.CEG_NODE_WIDTH, height: Config.CEG_NODE_HEIGHT });
         }
         if (Type.is(type, ProcessDecision)) {
             return new DiamondLineCoordsProvider(source, target, Config.PROCESS_DECISION_NODE_DIM);

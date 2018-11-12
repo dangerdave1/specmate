@@ -16,6 +16,12 @@ import { TranslateService } from '@ngx-translate/core';
 import { SelectTool } from '../../../tool-pallette/tools/common/select-tool';
 import { MultiselectionService } from '../../../tool-pallette/services/multiselection.service';
 import { ClipboardService } from '../../../tool-pallette/services/clipboard-service';
+import { BDDDeleteTool } from '../../../tool-pallette/tools/bdd/bdd-delete-tool';
+import { BDDNoTerminalNodeTool } from '../../../tool-pallette/tools/bdd/bdd-noterminal-node-tool';
+import { BDDTerminal0NodeTool } from '../../../tool-pallette/tools/bdd/bdd-terminal0-node-tool';
+import { BDDTerminal1NodeTool } from '../../../tool-pallette/tools/bdd/bdd-terminal1-node-tool';
+import { BDDConnection1Tool } from '../../../tool-pallette/tools/bdd/bdd-connection1-tool';
+import { BDDConnection0Tool } from '../../../tool-pallette/tools/bdd/bdd-connection0-tool';
 
 export class ToolProvider extends ProviderBase {
 
@@ -39,6 +45,8 @@ export class ToolProvider extends ProviderBase {
             this.createToolsForCEGModel();
         } else if (this.isProcessModel) {
             this.createToolsForProcess();
+        } else if (this.isBDDModel) {
+            this.createToolsForBDDModel();
         } else {
             this.createEmptyTools();
         }
@@ -56,6 +64,18 @@ export class ToolProvider extends ProviderBase {
             new CEGNodeTool(this.model, this.dataService, this.selectedElementService),
             new CEGConnectionTool(this.model, this.dataService, this.selectedElementService),
             new CEGDeleteTool(this.model, this.dataService, this.selectedElementService)
+        ];
+    }
+
+    private createToolsForBDDModel(): void {
+        this._tools = [
+            new SelectTool(this.selectedElementService, this.dataService, this.rectService, this.clipboardService, this.model),
+            new BDDNoTerminalNodeTool(this.model, this.dataService, this.selectedElementService),
+            new BDDTerminal0NodeTool(this.model, this.dataService, this.selectedElementService),
+            new BDDTerminal1NodeTool(this.model, this.dataService, this.selectedElementService),
+            new BDDConnection0Tool(this.model, this.dataService, this.selectedElementService),
+            new BDDConnection1Tool(this.model, this.dataService, this.selectedElementService),
+            new BDDDeleteTool(this.model, this.dataService, this.selectedElementService)
         ];
     }
 
