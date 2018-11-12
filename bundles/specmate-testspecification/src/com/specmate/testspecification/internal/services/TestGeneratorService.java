@@ -64,9 +64,6 @@ public class TestGeneratorService extends RestServiceBase {
 					IModelNode.class);
 
 			// setting up the CEGTestCaseGenerator with a newly created TestSpecification
-			//CEGTestCaseGenerator ceggi = new CEGTestCaseGenerator(
-			//		TestspecificationFactory.eINSTANCE.createTestSpecification());
-			
 			CEGTestCaseGenerator ceggi = new CEGTestCaseGenerator(specification);
 			ceggi.setModel(ceg_model);
 			ceggi.setNodes(ceg_nodes);

@@ -10,6 +10,7 @@ import { ConfirmationModal } from '../../../../../../notification/modules/modals
 import { Id } from '../../../../../../../util/id';
 import { BDDModel } from '../../../../../../../model/BDDModel';
 import { BDDModelFactory } from '../../../../../../../factory/bdd-model-factory';
+import { ClipboardService } from '../../tool-pallette/services/clipboard-service';
 
 @Component({
     moduleId: module.id.toString(),
@@ -20,8 +21,12 @@ import { BDDModelFactory } from '../../../../../../../factory/bdd-model-factory'
 
 export class BDDModelContainer extends ContentContainerBase<BDDModel> {
 
-    constructor(dataService: SpecmateDataService, navigator: NavigatorService, translate: TranslateService, modal: ConfirmationModal) {
-        super(dataService, navigator, translate, modal);
+    constructor(dataService: SpecmateDataService,
+        navigator: NavigatorService,
+        translate: TranslateService,
+        modal: ConfirmationModal,
+        clipboardService: ClipboardService) {
+        super(dataService, navigator, translate, modal, clipboardService);
     }
 
     protected condition = (element: IContainer) => Type.is(element, BDDModel);
