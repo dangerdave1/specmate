@@ -547,68 +547,80 @@ public class DummyDataService {
 		 * Viewing a BDD in the browser.
 		 */
 		
-		BDDModel bdd_m = hardCodedBDD();
+		BDDModel bdd_m = cycleBDD();
 		requirement1.getContents().add(bdd_m);
 		
 		/**
 		 * Testing the translation of CEGs into BDDs.
 		 */
 
-		CEGModel translated = translator.translate(cycleBDD());
-		requirement1.getContents().add(translated);
+		//CEGModel translated = translator.translate(cycleBDD());
+		//requirement1.getContents().add(translated);
 	}
 
 	private BDDModel cycleBDD() {
 		BDDModel model = BddFactory.eINSTANCE.createBDDModel();
+		model.setName("Cycle BDD");
+		model.setId("Cycle BDD");
+		model.setDescription("This is a BDD that has cycles.");
 
 		// node 1
 		BDDNoTerminalNode node1 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
 		node1.setId("node-1");
+		node1.setName("node-1");
 		node1.setVariable("A");
 		node1.setCondition("is true");
 
 		// node 2
 		BDDNoTerminalNode node2 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
 		node2.setId("node-2");
+		node2.setName("node-2");
 		node2.setVariable("B");
 		node2.setCondition("is true");
 
 		// node 3
 		BDDNoTerminalNode node3 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
 		node3.setId("node-3");
+		node3.setName("node-3");
 		node3.setVariable("C");
 		node3.setCondition("is true");
 
 		// node 4
 		BDDNoTerminalNode node4 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
 		node4.setId("node-4");
+		node4.setName("node-4");
 		node4.setVariable("D");
 		node4.setCondition("is true");
 
 		// terminal 1
 		BDDTerminalNode terminal1 = BddFactory.eINSTANCE.createBDDTerminalNode();
 		terminal1.setId("term-1");
+		terminal1.setName("term-1");
 		terminal1.setValue(false);
 
 		// terminal 2
 		BDDTerminalNode terminal2 = BddFactory.eINSTANCE.createBDDTerminalNode();
 		terminal2.setId("term-2");
+		terminal2.setName("term-2");
 		terminal2.setValue(true);
 
 		// terminal 3
 		BDDTerminalNode terminal3 = BddFactory.eINSTANCE.createBDDTerminalNode();
 		terminal3.setId("term-3");
+		terminal3.setName("term-3");
 		terminal3.setValue(false);
 
 		// connection 1
 		BDDConnection connection1 = BddFactory.eINSTANCE.createBDDConnection();
 		connection1.setId("conn-1");
+		connection1.setName("conn-1");
 		connection1.setSource(node1);
 		connection1.setTarget(node2);
 
 		// connection 2
 		BDDConnection connection2 = BddFactory.eINSTANCE.createBDDConnection();
 		connection2.setId("conn-2");
+		connection2.setName("conn-2");
 		connection2.setNegate(true);
 		connection2.setSource(node1);
 		connection2.setTarget(terminal3);
@@ -616,12 +628,14 @@ public class DummyDataService {
 		// connection 3
 		BDDConnection connection3 = BddFactory.eINSTANCE.createBDDConnection();
 		connection3.setId("conn-3");	
+		connection3.setName("conn-3");
 		connection3.setSource(node2);
 		connection3.setTarget(node3);
 
 		// connection 4
 		BDDConnection connection4 = BddFactory.eINSTANCE.createBDDConnection();
 		connection4.setId("conn-4");
+		connection4.setName("conn-4");
 		connection4.setNegate(true);
 		connection4.setSource(node2);
 		connection4.setTarget(terminal1);
@@ -629,12 +643,14 @@ public class DummyDataService {
 		// connection 5
 		BDDConnection connection5 = BddFactory.eINSTANCE.createBDDConnection();
 		connection5.setId("conn-5");
+		connection5.setName("conn-5");
 		connection5.setSource(node3);
 		connection5.setTarget(terminal3);
 
 		// connection 6
 		BDDConnection connection6 = BddFactory.eINSTANCE.createBDDConnection();
 		connection6.setId("conn-6");
+		connection6.setName("conn-6");
 		connection6.setNegate(true);
 		connection6.setSource(node3);
 		connection6.setTarget(node4);
@@ -642,12 +658,14 @@ public class DummyDataService {
 		// connection 7
 		BDDConnection connection7 = BddFactory.eINSTANCE.createBDDConnection();
 		connection7.setId("conn-7");
+		connection7.setName("conn-7");
 		connection7.setSource(node4);
 		connection7.setTarget(terminal2);
 
 		// connection 8
 		BDDConnection connection8 = BddFactory.eINSTANCE.createBDDConnection();
 		connection8.setId("conn-8");
+		connection8.setName("conn-8");
 		connection8.setNegate(true);
 		connection8.setSource(node4);
 		connection8.setTarget(node2);
@@ -831,45 +849,55 @@ public class DummyDataService {
 	 */
 	private BDDModel specmateBDD() {
 		BDDModel model = BddFactory.eINSTANCE.createBDDModel();
+		model.setId("Specmate BDD");
+		model.setName("Specmate BDD");
+		model.setDescription("This is the BDD for the CEG in the SM paper.");
 
 		// node 1
 		BDDNoTerminalNode node1 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
 		node1.setId("node-1");
+		node1.setName("node-1");
 		node1.setVariable("age");
 		node1.setCondition(">=18");
 
 		// node 2
 		BDDNoTerminalNode node2 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
 		node2.setId("node-2");
+		node2.setName("node-2");
 		node2.setVariable("age");
 		node2.setCondition(">=17");
 
 		// node 3
 		BDDNoTerminalNode node3 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
 		node3.setId("node-3");
+		node3.setName("node-3");
 		node3.setVariable("Consent of par.");
 		node3.setCondition("is available");
 
 		// node 4
 		BDDNoTerminalNode node4 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
 		node4.setId("node-4");
+		node4.setName("node-4");
 		node4.setVariable("Registration");
 		node4.setCondition("is available");
 
 		// node 5
 		BDDNoTerminalNode node5 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
 		node5.setId("node-5");
+		node5.setName("node-5");
 		node5.setVariable("Registration");
 		node5.setCondition("is available");
 
 		// terminal 1
 		BDDTerminalNode terminal1 = BddFactory.eINSTANCE.createBDDTerminalNode();
 		terminal1.setId("term-1");
+		terminal1.setName("term-1");
 		terminal1.setValue(true);
 
 		// connection 1
 		BDDConnection connection1 = BddFactory.eINSTANCE.createBDDConnection();
 		connection1.setId("conn-1");
+		connection1.setName("conn-1");
 		connection1.setNegate(true);
 		connection1.setSource(node1);
 		connection1.setTarget(node2);
@@ -877,30 +905,35 @@ public class DummyDataService {
 		// connection 2
 		BDDConnection connection2 = BddFactory.eINSTANCE.createBDDConnection();
 		connection2.setId("conn-2");
+		connection2.setName("conn-2");
 		connection2.setSource(node1);
 		connection2.setTarget(node5);
 
 		// connection 3
 		BDDConnection connection3 = BddFactory.eINSTANCE.createBDDConnection();
 		connection3.setId("conn-3");
+		connection3.setName("conn-3");
 		connection3.setSource(node2);
 		connection3.setTarget(node3);
 
 		// connection 4
 		BDDConnection connection4 = BddFactory.eINSTANCE.createBDDConnection();
 		connection4.setId("conn-4");
+		connection4.setName("conn-4");
 		connection4.setSource(node3);
 		connection4.setTarget(node4);
 
 		// connection 5
 		BDDConnection connection5 = BddFactory.eINSTANCE.createBDDConnection();
 		connection5.setId("conn-5");
+		connection5.setName("conn-5");
 		connection5.setSource(node4);
 		connection5.setTarget(terminal1);
 
 		// connection 6
 		BDDConnection connection6 = BddFactory.eINSTANCE.createBDDConnection();
 		connection6.setId("conn-6");
+		connection6.setName("conn-6");
 		connection6.setSource(node5);
 		connection6.setTarget(terminal1);
 
@@ -922,54 +955,66 @@ public class DummyDataService {
 
 	private BDDModel wrongBDD() {
 		BDDModel model = BddFactory.eINSTANCE.createBDDModel();
+		model.setId("Wrong BDD");
+		model.setName("Wrong BDD");
+		model.setDescription("This is a BDD that is simplified to $false.");
 
 		// node 1
 		BDDNoTerminalNode node1 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
 		node1.setId("node-1");
+		node1.setName("node-1");
 		node1.setVariable("A");
 		node1.setCondition("is true");
 
 		// node 2
 		BDDNoTerminalNode node2 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
 		node2.setId("node-2");
+		node2.setName("node-2");
 		node2.setVariable("B");
 		node2.setCondition("is true");
 
 		// node 3
 		BDDNoTerminalNode node3 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
 		node3.setId("node-3");
+		node3.setName("node-3");
 		node3.setVariable("C");
 		node3.setCondition("is true");
 
 		// node 4
 		BDDNoTerminalNode node4 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
 		node4.setId("node-4");
+		node4.setName("node-4");
 		node4.setVariable("B");
 		node4.setCondition("is true");
 
 		// terminal 1
 		BDDTerminalNode terminal1 = BddFactory.eINSTANCE.createBDDTerminalNode();
 		terminal1.setId("term-1");
+		terminal1.setName("term-1");
 		terminal1.setValue(false);
 
 		// terminal 2
 		BDDTerminalNode terminal2 = BddFactory.eINSTANCE.createBDDTerminalNode();
 		terminal2.setId("term-2");
+		terminal2.setName("term-2");
 		terminal2.setValue(false);
 
 		// terminal 3
 		BDDTerminalNode terminal3 = BddFactory.eINSTANCE.createBDDTerminalNode();
 		terminal3.setId("term-3");
+		terminal3.setName("term-3");
 		terminal3.setValue(false);
 
 		// terminal 4
 		BDDTerminalNode terminal4 = BddFactory.eINSTANCE.createBDDTerminalNode();
 		terminal4.setId("term-4");
+		terminal4.setName("term-4");
 		terminal4.setValue(true);
 
 		// connection 1
 		BDDConnection connection1 = BddFactory.eINSTANCE.createBDDConnection();
 		connection1.setId("conn-1");
+		connection1.setName("conn-1");
 		connection1.setNegate(true);
 		connection1.setSource(node1);
 		connection1.setTarget(node2);
@@ -977,18 +1022,21 @@ public class DummyDataService {
 		// connection 2
 		BDDConnection connection2 = BddFactory.eINSTANCE.createBDDConnection();
 		connection2.setId("conn-2");
+		connection2.setName("conn-2");
 		connection2.setSource(node1);
 		connection2.setTarget(terminal1);
 
 		// connection 3
 		BDDConnection connection3 = BddFactory.eINSTANCE.createBDDConnection();
 		connection3.setId("conn-3");
+		connection3.setName("conn-3");
 		connection3.setSource(node2);
 		connection3.setTarget(node3);
 
 		// connection 4
 		BDDConnection connection4 = BddFactory.eINSTANCE.createBDDConnection();
 		connection4.setId("conn-4");
+		connection4.setName("conn-4");
 		connection4.setNegate(true);
 		connection4.setSource(node2);
 		connection4.setTarget(terminal1);
@@ -996,12 +1044,14 @@ public class DummyDataService {
 		// connection 5
 		BDDConnection connection5 = BddFactory.eINSTANCE.createBDDConnection();
 		connection5.setId("conn-5");
+		connection5.setName("conn-5");
 		connection5.setSource(node3);
 		connection5.setTarget(terminal2);
 
 		// connection 6
 		BDDConnection connection6 = BddFactory.eINSTANCE.createBDDConnection();
 		connection6.setId("conn-6");
+		connection6.setName("conn-6");
 		connection6.setNegate(true);
 		connection6.setSource(node3);
 		connection6.setTarget(node4);
@@ -1009,12 +1059,14 @@ public class DummyDataService {
 		// connection 7
 		BDDConnection connection7 = BddFactory.eINSTANCE.createBDDConnection();
 		connection7.setId("conn-7");
+		connection7.setName("conn-7");
 		connection7.setSource(node4);
 		connection7.setTarget(terminal3);
 
 		// connection 8
 		BDDConnection connection8 = BddFactory.eINSTANCE.createBDDConnection();
 		connection8.setId("conn-8");
+		connection8.setName("conn-8");
 		connection8.setNegate(true);
 		connection8.setSource(node4);
 		connection8.setTarget(terminal4);
@@ -1041,54 +1093,66 @@ public class DummyDataService {
 
 	private BDDModel okBDD() {
 		BDDModel model = BddFactory.eINSTANCE.createBDDModel();
+		model.setId("Ok BDD");
+		model.setName("Ok BDD");
+		model.setDescription("The wrong BDD with additional paths to 1.");
 
 		// node 1
 		BDDNoTerminalNode node1 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
 		node1.setId("node-1");
+		node1.setName("node-1");
 		node1.setVariable("A");
 		node1.setCondition("is true");
 
 		// node 2
 		BDDNoTerminalNode node2 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
 		node2.setId("node-2");
+		node2.setName("node-2");
 		node2.setVariable("B");
 		node2.setCondition("is true");
 
 		// node 3
 		BDDNoTerminalNode node3 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
 		node3.setId("node-3");
+		node3.setName("node-3");
 		node3.setVariable("C");
 		node3.setCondition("is true");
 
 		// node 4
 		BDDNoTerminalNode node4 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
 		node4.setId("node-4");
+		node4.setName("node-4");
 		node4.setVariable("B");
 		node4.setCondition("is true");
 
 		// terminal 1
 		BDDTerminalNode terminal1 = BddFactory.eINSTANCE.createBDDTerminalNode();
 		terminal1.setId("term-1");
+		terminal1.setName("term-1");
 		terminal1.setValue(true);
 
 		// terminal 2
 		BDDTerminalNode terminal2 = BddFactory.eINSTANCE.createBDDTerminalNode();
 		terminal2.setId("term-2");
+		terminal2.setName("term-2");
 		terminal2.setValue(false);
 
 		// terminal 3
 		BDDTerminalNode terminal3 = BddFactory.eINSTANCE.createBDDTerminalNode();
 		terminal3.setId("term-3");
+		terminal3.setName("term-3");
 		terminal3.setValue(false);
 
 		// terminal 4
 		BDDTerminalNode terminal4 = BddFactory.eINSTANCE.createBDDTerminalNode();
 		terminal4.setId("term-4");
+		terminal4.setName("term-4");
 		terminal4.setValue(true);
 
 		// connection 1
 		BDDConnection connection1 = BddFactory.eINSTANCE.createBDDConnection();
 		connection1.setId("conn-1");
+		connection1.setName("conn-1");
 		connection1.setNegate(true);
 		connection1.setSource(node1);
 		connection1.setTarget(node2);
@@ -1096,18 +1160,21 @@ public class DummyDataService {
 		// connection 2
 		BDDConnection connection2 = BddFactory.eINSTANCE.createBDDConnection();
 		connection2.setId("conn-2");
+		connection2.setName("conn-2");
 		connection2.setSource(node1);
 		connection2.setTarget(node4);
 
 		// connection 3
 		BDDConnection connection3 = BddFactory.eINSTANCE.createBDDConnection();
 		connection3.setId("conn-3");
+		connection3.setName("conn-3");
 		connection3.setSource(node2);
 		connection3.setTarget(node3);
 
 		// connection 4
 		BDDConnection connection4 = BddFactory.eINSTANCE.createBDDConnection();
 		connection4.setId("conn-4");
+		connection4.setName("conn-4");
 		connection4.setNegate(true);
 		connection4.setSource(node2);
 		connection4.setTarget(terminal1);
@@ -1115,12 +1182,14 @@ public class DummyDataService {
 		// connection 5
 		BDDConnection connection5 = BddFactory.eINSTANCE.createBDDConnection();
 		connection5.setId("conn-5");
+		connection5.setName("conn-5");
 		connection5.setSource(node3);
 		connection5.setTarget(terminal2);
 
 		// connection 6
 		BDDConnection connection6 = BddFactory.eINSTANCE.createBDDConnection();
 		connection6.setId("conn-6");
+		connection6.setName("conn-6");
 		connection6.setNegate(true);
 		connection6.setSource(node3);
 		connection6.setTarget(node4);
@@ -1128,12 +1197,14 @@ public class DummyDataService {
 		// connection 7
 		BDDConnection connection7 = BddFactory.eINSTANCE.createBDDConnection();
 		connection7.setId("conn-7");
+		connection7.setName("conn-7");
 		connection7.setSource(node4);
 		connection7.setTarget(terminal3);
 
 		// connection 8
 		BDDConnection connection8 = BddFactory.eINSTANCE.createBDDConnection();
 		connection8.setId("conn-8");
+		connection8.setName("conn-8");
 		connection8.setNegate(true);
 		connection8.setSource(node4);
 		connection8.setTarget(terminal4);
@@ -1160,51 +1231,62 @@ public class DummyDataService {
 
 	private BDDModel onepathBDD() {
 		BDDModel model = BddFactory.eINSTANCE.createBDDModel();
+		model.setId("Onepath BDD");
+		model.setName("Onepath BDD");
+		model.setDescription("A BDD with just one path to 1.");
 
 		// node 1
 		BDDNoTerminalNode node1 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
 		node1.setId("node-1");
+		node1.setName("node-1");
 		node1.setVariable("A");
 		node1.setCondition("is true");
 
 		// node 2
 		BDDNoTerminalNode node2 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
 		node2.setId("node-2");
+		node2.setName("node-2");
 		node2.setVariable("B");
 		node2.setCondition("is true");
 
 		// node 3
 		BDDNoTerminalNode node3 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
 		node3.setId("node-3");
+		node3.setName("node-3");
 		node3.setVariable("C");
 		node3.setCondition("is true");
 
 		// node 4
 		BDDNoTerminalNode node4 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
 		node4.setId("node-4");
+		node4.setName("node-4");
 		node4.setVariable("B");
 		node4.setCondition("is true");
 
 		// node 5
 		BDDNoTerminalNode node5 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
 		node5.setId("node-5");
+		node5.setName("node-5");
 		node5.setVariable("D");
 		node5.setCondition("is true");
 
 		// node 6
 		BDDNoTerminalNode node6 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
 		node6.setId("node-6");
+		node6.setName("node-6");
 		node6.setVariable("A");
 		node6.setCondition("is true");
 
 		// terminal 1
 		BDDTerminalNode terminal1 = BddFactory.eINSTANCE.createBDDTerminalNode();
 		terminal1.setId("term-1");
+		terminal1.setName("term-1");
 		terminal1.setValue(true);
 
 		// connection 1
 		BDDConnection connection1 = BddFactory.eINSTANCE.createBDDConnection();
 		connection1.setId("conn-1");
+		connection1.setName("conn-1");
 		connection1.setNegate(true);
 		connection1.setSource(node1);
 		connection1.setTarget(node2);
@@ -1212,12 +1294,14 @@ public class DummyDataService {
 		// connection 2
 		BDDConnection connection2 = BddFactory.eINSTANCE.createBDDConnection();
 		connection2.setId("conn-2");
+		connection2.setName("conn-2");
 		connection2.setSource(node2);
 		connection2.setTarget(node3);
 
 		// connection 3
 		BDDConnection connection3 = BddFactory.eINSTANCE.createBDDConnection();
 		connection3.setId("conn-3");
+		connection3.setName("conn-3");
 		connection3.setNegate(true);
 		connection3.setSource(node3);
 		connection3.setTarget(node4);
@@ -1225,18 +1309,21 @@ public class DummyDataService {
 		// connection 4
 		BDDConnection connection4 = BddFactory.eINSTANCE.createBDDConnection();
 		connection4.setId("conn-4");
+		connection4.setName("conn-4");
 		connection4.setSource(node4);
 		connection4.setTarget(node5);
 
 		// connection 5
 		BDDConnection connection5 = BddFactory.eINSTANCE.createBDDConnection();
 		connection5.setId("conn-5");
+		connection5.setName("conn-5");
 		connection5.setSource(node5);
 		connection5.setTarget(node6);
 
 		// connection 6
 		BDDConnection connection6 = BddFactory.eINSTANCE.createBDDConnection();
 		connection6.setId("conn-6");
+		connection6.setName("conn-6");
 		connection6.setNegate(true);
 		connection6.setSource(node6);
 		connection6.setTarget(terminal1);
@@ -1260,77 +1347,93 @@ public class DummyDataService {
 
 	private BDDModel unorderedBDD() {
 		BDDModel model = BddFactory.eINSTANCE.createBDDModel();
+		model.setId("Unordered BDD");
+		model.setName("Unordered BDD");
+		model.setDescription("This is an unordered BDD.");
 
 		// node 1
 		BDDNoTerminalNode node1 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
 		node1.setId("node-1");
+		node1.setName("node-1");
 		node1.setVariable("A");
 		node1.setCondition("is true");
 
 		// node 2
 		BDDNoTerminalNode node2 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
 		node2.setId("node-2");
+		node2.setName("node-2");
 		node2.setVariable("B");
 		node2.setCondition("is true");
 
 		// node 3
 		BDDNoTerminalNode node3 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
 		node3.setId("node-3");
+		node3.setName("node-3");
 		node3.setVariable("C");
 		node3.setCondition("is true");
 
 		// node 4
 		BDDNoTerminalNode node4 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
 		node4.setId("node-4");
+		node4.setName("node-4");
 		node4.setVariable("D");
 		node4.setCondition("is true");
 
 		// node 5
 		BDDNoTerminalNode node5 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
 		node5.setId("node-5");
+		node5.setName("node-5");
 		node5.setVariable("C");
 		node5.setCondition("is true");
 
 		// node 6
 		BDDNoTerminalNode node6 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
 		node6.setId("node-6");
+		node6.setName("node-6");
 		node6.setVariable("B");
 		node6.setCondition("is true");
 
 		// node 7
 		BDDNoTerminalNode node7 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
 		node7.setId("node-7");
+		node7.setName("node-7");
 		node7.setVariable("E");
 		node7.setCondition("is true");
 
 		// terminal 1
 		BDDTerminalNode terminal1 = BddFactory.eINSTANCE.createBDDTerminalNode();
 		terminal1.setId("term-1");
+		terminal1.setName("term-1");
 		terminal1.setValue(false);
 
 		// terminal 2
 		BDDTerminalNode terminal2 = BddFactory.eINSTANCE.createBDDTerminalNode();
 		terminal2.setId("term-2");
+		terminal2.setName("term-2");
 		terminal2.setValue(true);
 
 		// terminal 3
 		BDDTerminalNode terminal3 = BddFactory.eINSTANCE.createBDDTerminalNode();
 		terminal3.setId("term-3");
+		terminal3.setName("term-3");
 		terminal3.setValue(false);
 
 		// terminal 4
 		BDDTerminalNode terminal4 = BddFactory.eINSTANCE.createBDDTerminalNode();
 		terminal4.setId("term-4");
+		terminal4.setName("term-4");
 		terminal4.setValue(true);
 
 		// terminal 5
 		BDDTerminalNode terminal5 = BddFactory.eINSTANCE.createBDDTerminalNode();
 		terminal5.setId("term-5");
+		terminal5.setName("term-5");
 		terminal5.setValue(false);
 
 		// connection 1
 		BDDConnection connection1 = BddFactory.eINSTANCE.createBDDConnection();
 		connection1.setId("conn-1");
+		connection1.setName("conn-1");
 		connection1.setNegate(true);
 		connection1.setSource(node1);
 		connection1.setTarget(node2);
@@ -1338,12 +1441,14 @@ public class DummyDataService {
 		// connection 2
 		BDDConnection connection2 = BddFactory.eINSTANCE.createBDDConnection();
 		connection2.setId("conn-2");
+		connection2.setName("conn-2");
 		connection2.setSource(node1);
 		connection2.setTarget(node3);
 
 		// connection 3
 		BDDConnection connection3 = BddFactory.eINSTANCE.createBDDConnection();
 		connection3.setId("conn-3");
+		connection3.setName("conn-3");
 		connection3.setNegate(true);
 		connection3.setSource(node2);
 		connection3.setTarget(node4);
@@ -1351,12 +1456,14 @@ public class DummyDataService {
 		// connection 4
 		BDDConnection connection4 = BddFactory.eINSTANCE.createBDDConnection();
 		connection4.setId("conn-4");
+		connection4.setName("conn-4");
 		connection4.setSource(node2);
 		connection4.setTarget(node5);
 
 		// connection 5
 		BDDConnection connection5 = BddFactory.eINSTANCE.createBDDConnection();
 		connection5.setId("conn-5");
+		connection5.setName("conn-5");
 		connection5.setNegate(true);
 		connection5.setSource(node3);
 		connection5.setTarget(node4);
@@ -1364,12 +1471,14 @@ public class DummyDataService {
 		// connection 6
 		BDDConnection connection6 = BddFactory.eINSTANCE.createBDDConnection();
 		connection6.setId("conn-6");
+		connection6.setName("conn-6");
 		connection6.setSource(node3);
 		connection6.setTarget(node6);
 
 		// connection 7
 		BDDConnection connection7 = BddFactory.eINSTANCE.createBDDConnection();
 		connection7.setId("conn-7");
+		connection7.setName("conn-7");
 		connection7.setNegate(true);
 		connection7.setSource(node4);
 		connection7.setTarget(terminal1);
@@ -1377,12 +1486,14 @@ public class DummyDataService {
 		// connection 8
 		BDDConnection connection8 = BddFactory.eINSTANCE.createBDDConnection();
 		connection8.setId("conn-8");
+		connection8.setName("conn-8");
 		connection8.setSource(node4);
 		connection8.setTarget(node7);
 
 		// connection 9
 		BDDConnection connection9 = BddFactory.eINSTANCE.createBDDConnection();
 		connection9.setId("conn-9");
+		connection9.setName("conn-9");
 		connection9.setNegate(true);
 		connection9.setSource(node5);
 		connection9.setTarget(node7);
@@ -1390,12 +1501,14 @@ public class DummyDataService {
 		// connection 10
 		BDDConnection connection10 = BddFactory.eINSTANCE.createBDDConnection();
 		connection10.setId("conn-10");
+		connection10.setName("conn-10");
 		connection10.setSource(node5);
 		connection10.setTarget(terminal4);
 
 		// connection 11
 		BDDConnection connection11 = BddFactory.eINSTANCE.createBDDConnection();
 		connection11.setId("conn-11");
+		connection11.setName("conn-11");
 		connection11.setNegate(true);
 		connection11.setSource(node6);
 		connection11.setTarget(node7);
@@ -1403,12 +1516,14 @@ public class DummyDataService {
 		// connection 12
 		BDDConnection connection12 = BddFactory.eINSTANCE.createBDDConnection();
 		connection12.setId("conn-12");
+		connection12.setName("conn-12");
 		connection12.setSource(node6);
 		connection12.setTarget(terminal5);
 
 		// connection 13
 		BDDConnection connection13 = BddFactory.eINSTANCE.createBDDConnection();
 		connection13.setId("conn-13");
+		connection13.setName("conn-13");
 		connection13.setNegate(true);
 		connection13.setSource(node7);
 		connection13.setTarget(terminal2);
@@ -1416,6 +1531,7 @@ public class DummyDataService {
 		// connection 14
 		BDDConnection connection14 = BddFactory.eINSTANCE.createBDDConnection();
 		connection14.setId("conn-14");
+		connection14.setName("conn-14");
 		connection14.setSource(node7);
 		connection14.setTarget(terminal3);
 

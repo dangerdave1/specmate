@@ -57,22 +57,30 @@ public class TestGeneratorService extends RestServiceBase {
 			new ProcessTestCaseGenerator(specification).generate();
 		} else if (container instanceof BDDModel) {
 
-			// translating
-			BDD2CEGTranslator translator = new BDD2CEGTranslator();
-			CEGModel ceg_model = translator.translate((BDDModel) container);
-			List<IModelNode> ceg_nodes = (List<IModelNode>) SpecmateEcoreUtil.pickInstancesOf(ceg_model.getContents(),
-					IModelNode.class);
+			try{
+				// translating
+				BDD2CEGTranslator translator = new BDD2CEGTranslator();
+				CEGModel ceg_model = translator.translate((BDDModel) container);
+				List<IModelNode> ceg_nodes = (List<IModelNode>) SpecmateEcoreUtil.pickInstancesOf(ceg_model.getContents(),
+						IModelNode.class);
 
-			// setting up the CEGTestCaseGenerator with a newly created TestSpecification
-			CEGTestCaseGenerator ceggi = new CEGTestCaseGenerator(specification);
-			ceggi.setModel(ceg_model);
-			ceggi.setNodes(ceg_nodes);
+				// setting up the CEGTestCaseGenerator with a given TestSpecification
+				CEGTestCaseGenerator ceggi = new CEGTestCaseGenerator(specification);
+				ceggi.setModel(ceg_model);
+				ceggi.setNodes(ceg_nodes);
 
-			// generating the test cases
-			ceggi.generate();
-			System.out.println("Generierung durchlaufen");
+				// generating the test cases
+				ceggi.generate();
+				System.out.println("Generation was successful!");
+				
+			}catch(IllegalArgumentException iae){
+				//we land here when the formula for the BDD is simplified to $false or $true
+				System.out.println("The BDD was simplified to a terminal.");
+				//TODO: open a popup window (like the one for saving before generating
+			}
+			
+			
 
-			// new BDDTestCaseGenerator(specification).generate();
 		} else {
 			throw new SpecmateValidationException(
 					"You can only generate test cases from ceg models or processes. The supplied element is of class "
