@@ -183,8 +183,7 @@ public class DummyDataService {
 		requirement1.setId("Requirement-1");
 		requirement1.setExtId("123");
 		requirement1.setName("Prüfung der Summe");
-		requirement1.setDescription(
-				"Das ist die Beschreibung des Requirements.");
+		requirement1.setDescription("Das ist die Beschreibung des Requirements.");
 		requirement1.setImplementingBOTeam("Business Analysts");
 		requirement1.setImplementingITTeam("The IT Nerds");
 		requirement1.setImplementingUnit("IT and Infrastructure");
@@ -546,16 +545,191 @@ public class DummyDataService {
 		/*
 		 * Viewing a BDD in the browser.
 		 */
-		
-		BDDModel bdd_m = cycleBDD();
+
+		BDDModel bdd_m = stillMinimalBDD();
 		requirement1.getContents().add(bdd_m);
-		
+
 		/**
 		 * Testing the translation of CEGs into BDDs.
 		 */
 
-		//CEGModel translated = translator.translate(cycleBDD());
-		//requirement1.getContents().add(translated);
+		// CEGModel translated = translator.translate(cycleBDD());
+		// requirement1.getContents().add(translated);
+	}
+
+	private BDDModel stillMinimalBDD() {
+		BDDModel model = BddFactory.eINSTANCE.createBDDModel();
+		model.setName("Mini BDD2");
+		model.setId("Mini BDD2");
+		model.setDescription("This is another BDD that is not minimized by QMA.");
+
+		// node 1
+		BDDNoTerminalNode node1 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
+		node1.setId("node-1");
+		node1.setName("node-1");
+		node1.setVariable("A");
+		node1.setCondition("is true");
+
+		// node 2
+		BDDNoTerminalNode node2 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
+		node2.setId("node-2");
+		node2.setName("node-2");
+		node2.setVariable("B");
+		node2.setCondition("is true");
+
+		// node 3
+		BDDNoTerminalNode node3 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
+		node3.setId("node-3");
+		node3.setName("node-3");
+		node3.setVariable("C");
+		node3.setCondition("is true");
+
+		// node 4
+		BDDNoTerminalNode node4 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
+		node4.setId("node-4");
+		node4.setName("node-4");
+		node4.setVariable("D");
+		node4.setCondition("is true");
+
+		// node 5
+		BDDNoTerminalNode node5 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
+		node5.setId("node-5");
+		node5.setName("node-5");
+		node5.setVariable("E");
+		node5.setCondition("is true");
+
+		// terminal 1
+		BDDTerminalNode terminal1 = BddFactory.eINSTANCE.createBDDTerminalNode();
+		terminal1.setId("term-1");
+		terminal1.setName("term-1");
+		terminal1.setValue(true);
+
+		// connection 1
+		BDDConnection connection1 = BddFactory.eINSTANCE.createBDDConnection();
+		connection1.setId("conn-1");
+		connection1.setName("conn-1");
+		connection1.setNegate(true);
+		connection1.setSource(node1);
+		connection1.setTarget(node2);
+
+		// connection 2
+		BDDConnection connection2 = BddFactory.eINSTANCE.createBDDConnection();
+		connection2.setId("conn-2");
+		connection2.setName("conn-2");
+		connection2.setSource(node2);
+		connection2.setTarget(node3);
+
+		// connection 3
+		BDDConnection connection3 = BddFactory.eINSTANCE.createBDDConnection();
+		connection3.setId("conn-3");
+		connection3.setName("conn-3");
+		connection3.setNegate(true);
+		connection3.setSource(node3);
+		connection3.setTarget(terminal1);
+
+		// connection 4
+		BDDConnection connection4 = BddFactory.eINSTANCE.createBDDConnection();
+		connection4.setId("conn-4");
+		connection4.setName("conn-4");
+		connection4.setSource(node1);
+		connection4.setTarget(node4);
+
+		// connection 5
+		BDDConnection connection5 = BddFactory.eINSTANCE.createBDDConnection();
+		connection5.setId("conn-5");
+		connection5.setName("conn-5");
+		connection5.setNegate(true);
+		connection5.setSource(node4);
+		connection5.setTarget(node5);
+
+		// connection 6
+		BDDConnection connection6 = BddFactory.eINSTANCE.createBDDConnection();
+		connection6.setId("conn-6");
+		connection6.setName("conn-6");
+		connection6.setSource(node5);
+		connection6.setTarget(terminal1);
+
+		model.getContents().add(node1);
+		model.getContents().add(node2);
+		model.getContents().add(node3);
+		model.getContents().add(node4);
+		model.getContents().add(node5);
+		model.getContents().add(terminal1);
+		model.getContents().add(connection1);
+		model.getContents().add(connection2);
+		model.getContents().add(connection3);
+		model.getContents().add(connection4);
+		model.getContents().add(connection5);
+		model.getContents().add(connection6);
+
+		return model;
+	}
+
+	private BDDModel alreadyMinimalBDD() {
+		BDDModel model = BddFactory.eINSTANCE.createBDDModel();
+		model.setName("Mini BDD");
+		model.setId("Mini BDD");
+		model.setDescription("This is a BDD that is not minimized by QMA.");
+
+		// node 1
+		BDDNoTerminalNode node1 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
+		node1.setId("node-1");
+		node1.setName("node-1");
+		node1.setVariable("A");
+		node1.setCondition("is true");
+
+		// node 2
+		BDDNoTerminalNode node2 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
+		node2.setId("node-2");
+		node2.setName("node-2");
+		node2.setVariable("B");
+		node2.setCondition("is true");
+
+		// node 3
+		BDDNoTerminalNode node3 = BddFactory.eINSTANCE.createBDDNoTerminalNode();
+		node3.setId("node-3");
+		node3.setName("node-3");
+		node3.setVariable("C");
+		node3.setCondition("is true");
+
+		// terminal 1
+		BDDTerminalNode terminal1 = BddFactory.eINSTANCE.createBDDTerminalNode();
+		terminal1.setId("term-1");
+		terminal1.setName("term-1");
+		terminal1.setValue(true);
+
+		// connection 1
+		BDDConnection connection1 = BddFactory.eINSTANCE.createBDDConnection();
+		connection1.setId("conn-1");
+		connection1.setName("conn-1");
+		connection1.setNegate(true);
+		connection1.setSource(node1);
+		connection1.setTarget(node2);
+
+		// connection 2
+		BDDConnection connection2 = BddFactory.eINSTANCE.createBDDConnection();
+		connection2.setId("conn-2");
+		connection2.setName("conn-2");
+		connection2.setSource(node2);
+		connection2.setTarget(node3);
+
+		// connection 3
+		BDDConnection connection3 = BddFactory.eINSTANCE.createBDDConnection();
+		connection3.setId("conn-3");
+		connection3.setName("conn-3");
+		connection3.setNegate(true);
+		connection3.setSource(node3);
+		connection3.setTarget(terminal1);
+
+		model.getContents().add(node1);
+		model.getContents().add(node2);
+		model.getContents().add(node3);
+		model.getContents().add(terminal1);
+		model.getContents().add(connection1);
+		model.getContents().add(connection2);
+		model.getContents().add(connection3);
+
+		return model;
 	}
 
 	private BDDModel cycleBDD() {
@@ -627,7 +801,7 @@ public class DummyDataService {
 
 		// connection 3
 		BDDConnection connection3 = BddFactory.eINSTANCE.createBDDConnection();
-		connection3.setId("conn-3");	
+		connection3.setId("conn-3");
 		connection3.setName("conn-3");
 		connection3.setSource(node2);
 		connection3.setTarget(node3);
@@ -685,7 +859,7 @@ public class DummyDataService {
 		model.getContents().add(connection6);
 		model.getContents().add(connection7);
 		model.getContents().add(connection8);
-		
+
 		return model;
 	}
 
@@ -696,6 +870,8 @@ public class DummyDataService {
 		// model settings
 		BDDModel model = BddFactory.eINSTANCE.createBDDModel();
 		model.setId("Model-bdd-big");
+		model.setName("Model-bdd-big");
+		model.setDescription("This is a big BDD with 22 nodes.");
 
 		// random generator
 		Random r = new Random();
@@ -707,6 +883,7 @@ public class DummyDataService {
 		for (int i = 0; i <= 19; i++) {
 			BDDNoTerminalNode node = BddFactory.eINSTANCE.createBDDNoTerminalNode();
 			node.setId("node-" + i);
+			node.setName("node-" + i);
 			// 10 possible variables: "0" to "9"
 			node.setVariable(Integer.toString(r.nextInt(10)));
 			node.setCondition("is true");
@@ -719,10 +896,12 @@ public class DummyDataService {
 		// defining one of each terminal
 		BDDTerminalNode terminal0 = BddFactory.eINSTANCE.createBDDTerminalNode();
 		terminal0.setId("term-0");
+		terminal0.setName("term-0");
 		terminal0.setValue(false);
 		model.getContents().add(terminal0);
 		BDDTerminalNode terminal1 = BddFactory.eINSTANCE.createBDDTerminalNode();
 		terminal1.setId("term-1");
+		terminal1.setName("term-1");
 		terminal1.setValue(true);
 		model.getContents().add(terminal1);
 
@@ -734,6 +913,7 @@ public class DummyDataService {
 			// connection1 (not negated)
 			BDDConnection conn1 = BddFactory.eINSTANCE.createBDDConnection();
 			conn1.setId("conn-" + i + "-high");
+			conn1.setName("conn-" + i + "-high");
 			conn1.setSource(nonterminals[i]);
 			if (targetcount <= 19) {
 				// still target nodes left
@@ -752,6 +932,7 @@ public class DummyDataService {
 			// connection2 (negated)
 			BDDConnection conn2 = BddFactory.eINSTANCE.createBDDConnection();
 			conn2.setId("conn-" + i + "-low");
+			conn2.setName("conn-" + i + "-low");
 			conn2.setSource(nonterminals[i]);
 			conn2.setNegate(true);
 			if (targetcount <= 19) {
@@ -770,15 +951,16 @@ public class DummyDataService {
 		}
 
 		// print all connections of BDD for testing
-		for (IModelConnection conn : (List<IModelConnection>) SpecmateEcoreUtil.pickInstancesOf(model.getContents(),
-				IModelConnection.class)) {
-			BDDConnection bdd_conn = (BDDConnection) conn;
-			if (bdd_conn.isNegate()) {
-				System.out.println(bdd_conn.getSource().getId() + " -/> " + bdd_conn.getTarget().getId());
-			} else {
-				System.out.println(bdd_conn.getSource().getId() + " --> " + bdd_conn.getTarget().getId());
-			}
-		}
+		/*
+		 * for (IModelConnection conn : (List<IModelConnection>)
+		 * SpecmateEcoreUtil.pickInstancesOf(model.getContents(),
+		 * IModelConnection.class)) { BDDConnection bdd_conn = (BDDConnection)
+		 * conn; if (bdd_conn.isNegate()) {
+		 * System.out.println(bdd_conn.getSource().getId() + " -/> " +
+		 * bdd_conn.getTarget().getId()); } else {
+		 * System.out.println(bdd_conn.getSource().getId() + " --> " +
+		 * bdd_conn.getTarget().getId()); } }
+		 */
 		return model;
 	}
 

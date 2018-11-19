@@ -41,7 +41,7 @@ public class RecNode {
 	 */
 	public int setIndices(int current_index, DoubleMap indexmap, Map<BDDNode, RecNode> act2rec){
 		//this node has been visited
-		System.out.println(actual.getId());
+		//System.out.println(actual.getId());
 		marked = true;
 		if(actual instanceof BDDNoTerminalNode){
 			//System.out.print(actual.getId()+": ");

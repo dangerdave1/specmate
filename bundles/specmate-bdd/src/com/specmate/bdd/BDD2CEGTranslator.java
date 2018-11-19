@@ -10,6 +10,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.logicng.formulas.Formula;
 import org.logicng.formulas.FormulaFactory;
 import org.logicng.formulas.Literal;
+import org.logicng.transformations.cnf.CNFFactorization;
 import org.logicng.transformations.qmc.QuineMcCluskeyAlgorithm;
 import static org.logicng.formulas.FType.*;
 
@@ -107,7 +108,10 @@ public class BDD2CEGTranslator {
 		Formula dnf = f.or(products);
 
 		System.out.println("Formula for BDD: " + dnf);
-
+		
+		//a fix that prevents the creation of new variables during Quine-McCluskey
+		dnf = dnf.transform(new CNFFactorization());
+		
 		// return minimized DNF
 		dnf = QuineMcCluskeyAlgorithm.compute(dnf);
 		return dnf;
