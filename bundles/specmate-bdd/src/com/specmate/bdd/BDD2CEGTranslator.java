@@ -10,6 +10,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.logicng.formulas.Formula;
 import org.logicng.formulas.FormulaFactory;
 import org.logicng.formulas.Literal;
+import org.logicng.formulas.Variable;
 import org.logicng.transformations.cnf.CNFFactorization;
 import org.logicng.transformations.qmc.QuineMcCluskeyAlgorithm;
 import static org.logicng.formulas.FType.*;
@@ -109,8 +110,8 @@ public class BDD2CEGTranslator {
 
 		System.out.println("Formula for BDD: " + dnf);
 		
-		//a fix that prevents the creation of new variables during Quine-McCluskey
-		dnf = dnf.transform(new CNFFactorization());
+		//TODO a fix that prevents the creation of new variables during Quine-McCluskey
+		//dnf = dnf.transform(new CNFFactorization());
 		
 		// return minimized DNF
 		dnf = QuineMcCluskeyAlgorithm.compute(dnf);
@@ -446,6 +447,65 @@ public class BDD2CEGTranslator {
 			RecNode rec = new RecNode((BDDNode) node);
 			act2rec.put((BDDNode) node, rec);
 		}
+	}
+	
+	/*
+	 * Method for testing the new version of LogicNG (1.4.1).
+	 */
+	public void testinglng141(){
+		System.out.println();
+		/*
+		 * Building a formula that only worked in LNG 1.4.0 with a fix 
+		 * (here: the formula I posted on Github).
+		 */
+		//variables 1-10
+		FormulaFactory f = new FormulaFactory();
+		Variable ten = f.variable("10");
+		Variable one = f.variable("1");
+		Variable two = f.variable("2");
+		Variable three = f.variable("3");
+		Variable four = f.variable("4");
+		Variable five = f.variable("5");
+		Variable six = f.variable("6");
+		Variable seven = f.variable("7");
+		Variable eight = f.variable("8");
+		Variable nine = f.variable("9");
+		//literals
+		Literal not10 = f.literal("10", false);
+		Literal not1 = f.literal("1", false);
+		Literal not2 = f.literal("2", false);
+		Literal not3 = f.literal("3", false);
+		Literal not4 = f.literal("4", false);
+		Literal not5 = f.literal("5", false);
+		Literal not6 = f.literal("6", false);
+		Literal not7 = f.literal("7", false);
+		Literal not8 = f.literal("8", false);
+		Literal not9 = f.literal("9", false);
+		//minterms
+		Formula minterm1 = f.and(not5, not4, three, two, one);	
+		Formula minterm2 = f.and(not3, not7, not2, one);
+		Formula minterm3 = f.and(not6, one, not3, two);
+		Formula minterm4 = f.and(not9, six, eight, not1);
+		Formula minterm5 = f.and(three, four, two, one);
+		Formula minterm6 = f.and(not2, seven, one);
+		Formula minterm7 = f.and(not10, not8, not1);
+		//final formula
+		Formula formula = f.or(minterm1, minterm2, minterm3, minterm4, minterm5, minterm6, minterm7);		
+		System.out.println("Formula to be minimized:");
+		System.out.println(formula);
+		System.out.println("~5 & ~4 & 3 & 2 & 1 | ~3 & ~7 & ~2 & 1 | ~6 & 1 & ~3 & 2 | ~9 & 6 & 8 & ~1 | 3 & 4 & 2 & 1 | ~2 & 7 & 1 | ~10 & ~8 & ~1");
+		
+		/*
+		 * Minimization
+		 */
+		//without fix
+		System.out.println("Minimized formula (without fix):");
+		System.out.println(QuineMcCluskeyAlgorithm.compute(formula));
+		//with fix
+		System.out.println("Minimized formula (with fix):");
+		formula = formula.transform(new CNFFactorization());
+		System.out.println(QuineMcCluskeyAlgorithm.compute(formula));
+		System.out.println();
 	}
 
 	// Ab hier: BDD-Reduktion (noch in Arbeit)

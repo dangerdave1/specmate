@@ -75,7 +75,7 @@ public class TestGeneratorService extends RestServiceBase {
 				
 			}catch(IllegalArgumentException iae){
 				//we land here when the formula for the BDD is simplified to $false or $true
-				System.out.println("The BDD was simplified to a terminal.");
+				System.out.println("TestGeneratorService: The BDD was simplified to a terminal.");
 				//TODO: open a popup window (like the one for saving before generating
 			}
 			

@@ -265,8 +265,24 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="BDDNoTerminalNode" eSuperTypes="#//bdd/BDDNode">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="variable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="condition" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="variable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+        <eAnnotations source="http://specmate.com/form_meta">
+          <details key="shortDesc" value="Variable"/>
+          <details key="longDesc" value="The variable of a node"/>
+          <details key="required" value="true"/>
+          <details key="type" value="text"/>
+          <details key="position" value="1"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="condition" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+        <eAnnotations source="http://specmate.com/form_meta">
+          <details key="shortDesc" value="Condition"/>
+          <details key="longDesc" value="The condition the variable has to fulfil"/>
+          <details key="required" value="true"/>
+          <details key="type" value="text"/>
+          <details key="position" value="2"/>
+        </eAnnotations>
+      </eStructuralFeatures>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="BDDConnection" eSuperTypes="#//base/IModelConnection">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="negate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>

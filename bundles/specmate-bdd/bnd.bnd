@@ -1,5 +1,5 @@
 -buildpath: \
-	jar/logicng-1.4.0.jar;version=file,\
+	jar/logicng-1.4.1.jar;version=file,\
 	specmate-common;version=latest,\
 	specmate-model-gen;version=latest,\
 	org.eclipse.osgi.services,\

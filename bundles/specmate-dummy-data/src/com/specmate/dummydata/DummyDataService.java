@@ -543,10 +543,16 @@ public class DummyDataService {
 		testFolder.getContents().add(libfolder3);
 
 		/*
+		 * Testing LNG 1.4.1
+		 */
+		
+		translator.testinglng141();
+		
+		/*
 		 * Viewing a BDD in the browser.
 		 */
 
-		BDDModel bdd_m = stillMinimalBDD();
+		BDDModel bdd_m = hardTerminal();
 		requirement1.getContents().add(bdd_m);
 
 		/**
@@ -1015,10 +1021,13 @@ public class DummyDataService {
 	private BDDModel hardTerminal() {
 		BDDModel oans = BddFactory.eINSTANCE.createBDDModel();
 		oans.setId("1-Terminal");
+		oans.setName("1Term");
+		oans.setDescription("Just a 1-terminal");
 
 		// terminal 1
 		BDDTerminalNode terminal1 = BddFactory.eINSTANCE.createBDDTerminalNode();
 		terminal1.setId("term-1");
+		terminal1.setName("term-1");
 		terminal1.setValue(true);
 
 		oans.getContents().add(terminal1);
