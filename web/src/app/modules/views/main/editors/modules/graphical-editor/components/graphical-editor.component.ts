@@ -294,6 +294,9 @@ export class GraphicalEditor {
                 this.editorToolsService.activateDefaultTool();
             }
         }
+        if (!this.selectedElementService.hasSelection) {
+            this.selectedElementService.select(this.model);
+        }
     }
 
     private select(element: IContainer, event: MouseEvent): void {

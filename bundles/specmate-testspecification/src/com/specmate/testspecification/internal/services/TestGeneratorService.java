@@ -9,7 +9,6 @@ import org.osgi.service.component.annotations.Component;
 
 import com.specmate.bdd.BDD2CEGTranslator;
 import com.specmate.common.SpecmateException;
-import com.specmate.common.SpecmateValidationException;
 import com.specmate.emfrest.api.IRestService;
 import com.specmate.emfrest.api.RestServiceBase;
 import com.specmate.model.base.BaseFactory;
@@ -47,8 +46,7 @@ public class TestGeneratorService extends RestServiceBase {
 
 	/** {@inheritDoc} */
 	@Override
-	public RestResult<?> post(Object target, Object object, String token)
-			throws SpecmateValidationException, SpecmateException {
+	public RestResult<?> post(Object target, Object object, String token) throws SpecmateException {
 		TestSpecification specification = (TestSpecification) target;
 		EObject container = specification.eContainer();
 		if (container instanceof CEGModel) {
@@ -82,7 +80,7 @@ public class TestGeneratorService extends RestServiceBase {
 			
 
 		} else {
-			throw new SpecmateValidationException(
+			throw new SpecmateException(
 					"You can only generate test cases from ceg models or processes. The supplied element is of class "
 							+ container.getClass().getSimpleName());
 		}

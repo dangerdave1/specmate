@@ -1,2 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
+<<<<<<< HEAD
 <repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="Release" increment="1542022043481"/>
+=======
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="Release" increment="1543303994575"/>
+>>>>>>> refs/remotes/specmate_original/develop
