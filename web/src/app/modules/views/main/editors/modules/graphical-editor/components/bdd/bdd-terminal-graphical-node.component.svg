@@ -5,8 +5,6 @@
         [attr.width]="dimensions.width" 
         [attr.height]="dimensions.height" 
         style="fill:rgb(255,255,255);stroke-width:2;" 
-        rx="5" 
-        ry="5"
         [ngClass]="{'selected': selected, 'deselected': !selected, 'invalid': !isValid, 'valid': isValid}" >
     </svg:rect>
     <svg:g truncated-text [text]="text" [width]="dimensions.width" [position]="{x: dimensions.width / 2.0, y: (0 * ((dimensions.height / 2) - 1) + 15)}"></svg:g>
@@ -18,7 +16,5 @@
     [attr.y]="dragDummyPosition.y"
     [attr.width]="dragDummyDimensions.width + 2" 
     [attr.height]="dragDummyDimensions.height + 2" 
-    [ngClass] = "cursorClass"
-    rx="5" 
-    ry="5">
+    [ngClass] = "cursorClass">
 </svg:rect>

@@ -1,6 +1,6 @@
 {
 	"Action": "Action",
-	"BDDModels": "",
+	"BDDModels": "Binary Decision Diagrams",
 	"Cause-EffectModels": "Cause-Effect Models",
 	"Changed": "Changed",
 	"ChangedTo": "changed to",

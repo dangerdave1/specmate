@@ -298,6 +298,7 @@ public class DummyDataService {
 		lmNode1.setX(20);
 		lmNode1.setY(0);
 		lmNode1.setType(NodeType.AND);
+		lmNode1.setName("lmNode1");
 
 		CEGNode lmNode2 = RequirementsFactory.eINSTANCE.createCEGNode();
 		lmNode2.setVariable("Großer Vokal");
@@ -306,6 +307,7 @@ public class DummyDataService {
 		lmNode2.setX(20);
 		lmNode2.setY(120);
 		lmNode2.setType(NodeType.AND);
+		lmNode2.setName("lmNode2");
 
 		CEGNode lmNode3 = RequirementsFactory.eINSTANCE.createCEGNode();
 		lmNode3.setVariable("Gesamtzahl");
@@ -314,7 +316,8 @@ public class DummyDataService {
 		lmNode3.setX(20);
 		lmNode3.setY(240);
 		lmNode3.setType(NodeType.AND);
-
+		lmNode3.setName("lmNode3");
+		
 		CEGNode lmNode4 = RequirementsFactory.eINSTANCE.createCEGNode();
 		lmNode4.setVariable("Z1");
 		lmNode4.setCondition("is present");
@@ -322,6 +325,7 @@ public class DummyDataService {
 		lmNode4.setX(260);
 		lmNode4.setY(0);
 		lmNode4.setType(NodeType.OR);
+		lmNode4.setName("lmNode4");
 
 		CEGNode lmNode5 = RequirementsFactory.eINSTANCE.createCEGNode();
 		lmNode5.setVariable("Operation");
@@ -330,6 +334,7 @@ public class DummyDataService {
 		lmNode5.setX(260);
 		lmNode5.setY(300);
 		lmNode5.setType(NodeType.OR);
+		lmNode5.setName("lmNode5");
 
 		CEGNode lmNode6 = RequirementsFactory.eINSTANCE.createCEGNode();
 		lmNode6.setVariable("Gesamtanzahl");
@@ -338,6 +343,7 @@ public class DummyDataService {
 		lmNode6.setX(500);
 		lmNode6.setY(0);
 		lmNode6.setType(NodeType.AND);
+		lmNode6.setName("lmNode6");
 
 		CEGNode lmNode7 = RequirementsFactory.eINSTANCE.createCEGNode();
 		lmNode7.setVariable("Vokalanzahl");
@@ -346,6 +352,7 @@ public class DummyDataService {
 		lmNode7.setX(500);
 		lmNode7.setY(120);
 		lmNode7.setType(NodeType.AND);
+		lmNode7.setName("lmNode7");
 
 		CEGNode lmNode8 = RequirementsFactory.eINSTANCE.createCEGNode();
 		lmNode8.setVariable("Zeichen");
@@ -354,6 +361,7 @@ public class DummyDataService {
 		lmNode8.setX(500);
 		lmNode8.setY(240);
 		lmNode8.setType(NodeType.AND);
+		lmNode8.setName("lmNode8");
 
 		CEGConnection lmConn1 = RequirementsFactory.eINSTANCE.createCEGConnection();
 		lmConn1.setId("lmConn1");
@@ -552,7 +560,7 @@ public class DummyDataService {
 		 * Viewing a BDD in the browser.
 		 */
 
-		BDDModel bdd_m = hardTerminal();
+		BDDModel bdd_m = unorderedBDD();
 		requirement1.getContents().add(bdd_m);
 
 		/**
@@ -1538,7 +1546,7 @@ public class DummyDataService {
 
 	private BDDModel unorderedBDD() {
 		BDDModel model = BddFactory.eINSTANCE.createBDDModel();
-		model.setId("Unordered BDD");
+		model.setId("Unordered-BDD");
 		model.setName("Unordered BDD");
 		model.setDescription("This is an unordered BDD.");
 
@@ -1955,6 +1963,7 @@ public class DummyDataService {
 		start.setId("start");
 		start.setX(50);
 		start.setY(100);
+		start.setName("Start");
 		process.getContents().add(start);
 
 		ProcessStep step1 = ProcessesFactory.eINSTANCE.createProcessStep();
@@ -1982,6 +1991,7 @@ public class DummyDataService {
 		decision.setId("decision1");
 		decision.setX(400);
 		decision.setY(300);
+		decision.setName("Decision");
 		process.getContents().add(decision);
 
 		ProcessStep step4 = ProcessesFactory.eINSTANCE.createProcessStep();
@@ -2030,6 +2040,7 @@ public class DummyDataService {
 		end.setId("end");
 		end.setX(800);
 		end.setY(300);
+		end.setName("End");
 		process.getContents().add(end);
 
 		ProcessConnection conn1 = ProcessesFactory.eINSTANCE.createProcessConnection();
