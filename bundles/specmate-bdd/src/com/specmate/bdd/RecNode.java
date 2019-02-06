@@ -26,12 +26,16 @@ public class RecNode {
 	//a reference to the actual BDDNode that this RecNode represents
 	private BDDNode actual;
 	
+	//for marking visited BDDs
+	private boolean marked;
+		
 	public RecNode(BDDNode actual) {
 		this.actual = actual;
-		//-1 means: no child
-		low = -1;
-		high = -1;
 		marked = false;
+	}
+	
+	public boolean isMarked(){
+		return marked;
 	}
 	
 	/*
@@ -41,10 +45,8 @@ public class RecNode {
 	 */
 	public int setIndices(int current_index, DoubleMap indexmap, Map<BDDNode, RecNode> act2rec){
 		//this node has been visited
-		//System.out.println(actual.getId());
 		marked = true;
 		if(actual instanceof BDDNoTerminalNode){
-			//System.out.print(actual.getId()+": ");
 			//prepare a pair for this node
 			 Pair<String, String> current = Pair.of(((BDDNoTerminalNode) actual).getVariable(), ((BDDNoTerminalNode) actual).getCondition());
 			 
@@ -61,7 +63,6 @@ public class RecNode {
 				//add new pair to indexmap
 				indexmap.add(current, nextIndex);	
 			}
-			//System.out.println(indexmap);
 			
 			//recursive calls on the children of the actual node
 			for(IModelConnection conn : actual.getOutgoingConnections()){
@@ -92,7 +93,7 @@ public class RecNode {
 		//list of incoming connections for this node
 		EList<IModelConnection> incoming = actual.getIncomingConnections();
 		
-		//quick fix for cycles: current=$false is stopped directly
+		//for cycles: if the current formula is $false, the recursion is stopped
 		if(current.type()==FALSE){
 			return;
 		}
@@ -117,40 +118,12 @@ public class RecNode {
 			Pair<String, String> pair = Pair.of(((BDDNoTerminalNode) pre).getVariable(), ((BDDNoTerminalNode) pre).getCondition());
 			if(((BDDConnection) conn).isNegate()){
 				currentChanged = f.and(current, f.literal(Integer.toString(indexmap.getIndexFor(pair)), false));
-				//System.out.println(f.literal(Integer.toString(indexmap.getIndexFor(pair)), false));
 			}else{
 				currentChanged = f.and(current, f.variable(Integer.toString(indexmap.getIndexFor(pair))));
-				//System.out.println(f.variable(Integer.toString(indexmap.getIndexFor(pair))));
 			}
 			//recursive call on the RecNode of pre
-			act2rec.get((BDDNode) pre).findPaths(currentChanged, paths, indexmap, act2rec);
-			
-			//the next time the original path (current) will be used again
-		} //end of for
-	}
-	
-	/**
-	 * Additions for marking visited BDDs.
-	 */
-	
-	private boolean marked;
-	
-	public boolean isMarked(){
-		return marked;
-	}
-	
-	/**
-	 * Additions for the reduction of BDDs.
-	 */
-	
-	//ids of the two children
-	private int low, high;
-		
-	public int getLow(){
-		return this.low;
-	}
-		
-	public int getHigh(){
-		return this.high;
-	}
-}
+			act2rec.get((BDDNode) pre).findPaths(currentChanged, paths, indexmap, act2rec);			
+			//in the next iteration the original path (current) will be used again
+		} 
+	} //end of method
+} 

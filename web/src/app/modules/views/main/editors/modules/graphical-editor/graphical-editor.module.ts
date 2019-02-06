@@ -20,6 +20,7 @@ import { GenericGraphicalConnection } from './components/common/generic-graphica
 import { BDDTerminalGraphicalNode } from './components/bdd/bdd-terminal-graphical-node.component';
 import { BDDNoTerminalGraphicalNode } from './components/bdd/bdd-noterminal-graphical-node.component';
 import { BDDGraphicalConnection } from './components/bdd/bdd-graphical-connection.component';
+import { ConnectionLineDashed } from './components/common/connection-line-dashed.component';
 
 @NgModule({
   imports: [
@@ -46,6 +47,7 @@ import { BDDGraphicalConnection } from './components/bdd/bdd-graphical-connectio
     BDDNoTerminalGraphicalNode,
     BDDGraphicalConnection,
     ConnectionLine,
+    ConnectionLineDashed,
     ArrowTip,
     TruncatedText
   ],

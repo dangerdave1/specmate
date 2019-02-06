@@ -18,6 +18,8 @@ import com.specmate.model.processes.Process;
 import com.specmate.model.requirements.CEGModel;
 import com.specmate.model.requirements.RequirementsFactory;
 import com.specmate.model.support.util.SpecmateEcoreUtil;
+import com.specmate.model.testspecification.ParameterType;
+import com.specmate.model.testspecification.TestParameter;
 import com.specmate.model.testspecification.TestSpecification;
 import com.specmate.model.testspecification.TestspecificationFactory;
 import com.specmate.rest.RestResult;
@@ -69,16 +71,12 @@ public class TestGeneratorService extends RestServiceBase {
 
 				// generating the test cases
 				ceggi.generate();
-				System.out.println("Generation was successful!");
 				
 			}catch(IllegalArgumentException iae){
 				//we land here when the formula for the BDD is simplified to $false or $true
 				System.out.println("TestGeneratorService: The BDD was simplified to a terminal.");
-				//TODO: open a popup window (like the one for saving before generating
 			}
 			
-			
-
 		} else {
 			throw new SpecmateException(
 					"You can only generate test cases from ceg models or processes. The supplied element is of class "

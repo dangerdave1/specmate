@@ -10,8 +10,6 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.logicng.formulas.Formula;
 import org.logicng.formulas.FormulaFactory;
 import org.logicng.formulas.Literal;
-import org.logicng.formulas.Variable;
-import org.logicng.transformations.cnf.CNFFactorization;
 import org.logicng.transformations.qmc.QuineMcCluskeyAlgorithm;
 import static org.logicng.formulas.FType.*;
 
@@ -37,10 +35,33 @@ public class BDD2CEGTranslator {
 	// mapping from actual node to corresponding RecNode
 	private Map<BDDNode, RecNode> act2rec;
 
-	/**
-	 * This code was originally used to check the BDD. For now, the only purpose
-	 * of this method is to establish the mapping between (variable, condition)
-	 * pairs and indices (stored in indexmap).
+	/*
+	 * the method to be called from other classes
+	 */
+	public CEGModel translate(BDDModel model) {
+		setup(model);
+		createIndexMap();
+		Formula f = translateToDNF();
+		CEGModel ret = createCeg(f);
+		return ret;
+	}
+	
+	/*
+	 * Put nodes into nodes list. Then creates a RecNode for each element in the
+	 * nodes list and creates the mapping between them (in act2rec).
+	 */
+	private void setup(BDDModel model) {
+		nodes = (List<IModelNode>) SpecmateEcoreUtil.pickInstancesOf(model.getContents(), IModelNode.class);
+		act2rec = new HashMap<>();
+		for (IModelNode node : nodes) {
+			RecNode rec = new RecNode((BDDNode) node);
+			act2rec.put((BDDNode) node, rec);
+		}
+	}
+	
+	/*
+	 * The purpose of this method is to establish the mapping between
+	 * (variable, condition) pairs and indices (stored in indexmap).
 	 */
 	private void createIndexMap() {
 		// put all nodes without incoming connections into a set
@@ -99,19 +120,8 @@ public class BDD2CEGTranslator {
 			current.findPaths(f.verum(), products, indexmap, act2rec);
 		}
 
-		/*
-		for (Formula min : products) {
-			System.out.println(min);
-		}
-		*/
-
 		// create the sum of all products
 		Formula dnf = f.or(products);
-
-		System.out.println("Formula for BDD: " + dnf);
-		
-		//TODO a fix that prevents the creation of new variables during Quine-McCluskey
-		//dnf = dnf.transform(new CNFFactorization());
 		
 		// return minimized DNF
 		dnf = QuineMcCluskeyAlgorithm.compute(dnf);
@@ -120,7 +130,7 @@ public class BDD2CEGTranslator {
 
 	/*
 	 * Creates a CEG from the given formula if possible. Decides whether the
-	 * given formula is a LITERAL or an OR.
+	 * given formula is a LITERAL, an AND or an OR.
 	 */
 	private CEGModel createCeg(Formula formula) {
 		switch (formula.type()) {
@@ -135,71 +145,32 @@ public class BDD2CEGTranslator {
 			throw new IllegalArgumentException("ceg cannot be generated from this formula");
 		}
 	}
-
+	
 	/*
-	 * Handles the AND case of the CEG generation. In this case there is only
-	 * one minterm. Instead of creating a node for the minterm the input nodes
-	 * are connected directly to the output node. The output node is set to AND.
+	 * Creates a CEG Model with an output node as the only element of the model.
+	 * The returned model can be used for both the LITERAL and the OR case.
 	 */
-	private CEGModel andCase(Formula minterm) {
-		// mapping from variable name to node to make sure that there is only
-		// one node for each variable
-		Map<String, CEGNode> name2node = new HashMap<>();
+	private CEGModel createBasicCeg() {
+		// create CEGModel
+		CEGModel ceg = RequirementsFactory.eINSTANCE.createCEGModel();
+		ceg.setId("Model-Translated-1");
+		ceg.setName("Translated from BDD");
 
-		// current number of input nodes; used for setting their position
-		int number_inputs = 0;
+		// create output node
+		CEGNode out = RequirementsFactory.eINSTANCE.createCEGNode();
+		out.setId("node-out");
+		out.setName("node-out");
+		out.setVariable("BDD");
+		out.setCondition("is true");
+		out.setType(NodeType.OR);
+		out.setX(675);
+		out.setY(90);
 
-		// current count of the connection; used for setting the connection ids
-		int number_connections = 0;
-
-		//get a basic CEG from general method
-		CEGModel ceg = createBasicCeg();
-		
-		// changing the operator of the output node to AND
-		IContentElement out = ceg.getContents().get(0);
-		AssertUtil.assertTrue(out instanceof CEGNode);
-		((CEGNode) out).setType(NodeType.AND);
-
-		// iterate through all literals of the minterm
-		Iterator<Formula> and_it = minterm.iterator();
-		while (and_it.hasNext()) {
-			Formula f = and_it.next();
-			AssertUtil.assertTrue(f.type() == LITERAL);
-			Literal l = (Literal) f;
-
-			// in node for this variable has not been created yet
-			if (!name2node.containsKey(l.name())) {
-				CEGNode innode = RequirementsFactory.eINSTANCE.createCEGNode();
-				int index = Integer.parseInt(l.name());
-				innode.setId("node-in-" + index);
-				innode.setName("node-in-" + index);
-				Pair<String, String> pair = indexmap.getPairFor(index);
-				innode.setVariable(pair.getLeft());
-				innode.setCondition(pair.getRight());
-				name2node.put(l.name(), innode);
-				innode.setX(45);
-				innode.setY(90 + (90 * number_inputs));
-				ceg.getContents().add(innode);
-				number_inputs++;
-			}
-
-			// create connection from this in node to outnode
-			CEGConnection in2out = RequirementsFactory.eINSTANCE.createCEGConnection();
-			number_connections++;
-			in2out.setId("conn-" + number_connections);
-			in2out.setName("conn-" + number_connections);
-			in2out.setSource(name2node.get(l.name()));
-			in2out.setTarget((CEGNode) out);
-			if (l.phase() == false) {
-				// negated literal (e.g. ~A) -> negated connection
-				in2out.setNegate(true);
-			}
-
-			ceg.getContents().add(in2out);
-		}
+		// add component to model
+		ceg.getContents().add(out);
 		return ceg;
 	}
-
+	
 	/*
 	 * Handles the LITERAL case of the CEG generation. In this case the final
 	 * CEG consists of an input node, an output node and a connection between
@@ -237,32 +208,7 @@ public class BDD2CEGTranslator {
 		ceg.getContents().add(connection);
 		return ceg;
 	}
-
-	/*
-	 * Creates a CEG Model with an output node as the only element of the model.
-	 * The returned model can be used for both the LITERAL and the OR case.
-	 */
-	private CEGModel createBasicCeg() {
-		// create CEGModel
-		CEGModel ceg = RequirementsFactory.eINSTANCE.createCEGModel();
-		ceg.setId("Model-Translated-1");
-		ceg.setName("Translated from BDD");
-
-		// create output node
-		CEGNode out = RequirementsFactory.eINSTANCE.createCEGNode();
-		out.setId("node-out");
-		out.setName("node-out");
-		out.setVariable("BDD");
-		out.setCondition("is true");
-		out.setType(NodeType.OR);
-		out.setX(675);
-		out.setY(90);
-
-		// add component to model
-		ceg.getContents().add(out);
-		return ceg;
-	}
-
+	
 	/*
 	 * Creates a CEG Model for a formula that is a disjunction, e.g. ~A | A & B.
 	 */
@@ -306,7 +252,7 @@ public class BDD2CEGTranslator {
 
 		return ceg;
 	}
-
+	
 	/*
 	 * Is called when a minterm is just a literal. In this case the node for
 	 * this variable is directly connected to the output node (no extra minterm
@@ -339,8 +285,7 @@ public class BDD2CEGTranslator {
 		connection.setName("conn-" + (number_connections + 1));
 		// get the node for this variable from the map
 		connection.setSource(name2node.get(l.name()));
-		// the output node has been added first, so it should be in the first
-		// place
+		// the output node has been added first, so it should be in the first place
 		connection.setTarget((CEGNode) ceg.getContents().get(0));
 		if (l.phase() == false) {
 			// negated literal (e.g. ~A) -> negated connection
@@ -350,7 +295,7 @@ public class BDD2CEGTranslator {
 		ceg.getContents().add(connection);
 		return ret;
 	}
-
+	
 	private Pair<Integer, Integer> orCase_and(CEGModel ceg, Formula minterm, Map<String, CEGNode> name2node,
 			int number_minterms, int number_connections, int number_inputs) {
 		// tells the caller how many connections/input nodes have been created
@@ -420,142 +365,67 @@ public class BDD2CEGTranslator {
 	}
 
 	/*
-	 * the method to be called from other classes
+	 * Handles the AND case of the CEG generation. In this case there is only
+	 * one minterm. Instead of creating a node for the minterm the input nodes
+	 * are connected directly to the output node. The output node is set to AND.
 	 */
-	public CEGModel translate(BDDModel model) {
-		setup(model);
-		System.out.println("BDD has " + nodes.size() + " node(s)");
-		createIndexMap();
-		System.out.println("indexmap for this BDD: " + indexmap);
-		Formula f = translateToDNF();
-		System.out.println("Minimized formula: " + f);
-		CEGModel ret = createCeg(f);
-		List<IModelNode> ceg_nodes = (List<IModelNode>) SpecmateEcoreUtil.pickInstancesOf(ret.getContents(),
-				IModelNode.class);
-		System.out.println("CEG has " + ceg_nodes.size() + " node(s)");
-		return ret;
-	}
+	private CEGModel andCase(Formula minterm) {
+		// mapping from variable name to node to make sure that there is only
+		// one node for each variable
+		Map<String, CEGNode> name2node = new HashMap<>();
 
-	/**
-	 * Put nodes into nodes list. Then creates a RecNode for each element in the
-	 * nodes list and creates the mapping between them (in act2rec).
-	 */
-	private void setup(BDDModel model) {
-		nodes = (List<IModelNode>) SpecmateEcoreUtil.pickInstancesOf(model.getContents(), IModelNode.class);
-		act2rec = new HashMap<>();
-		for (IModelNode node : nodes) {
-			RecNode rec = new RecNode((BDDNode) node);
-			act2rec.put((BDDNode) node, rec);
-		}
-	}
-	
-	/*
-	 * Method for testing the new version of LogicNG (1.4.1).
-	 */
-	public void testinglng141(){
-		System.out.println();
-		/*
-		 * Building a formula that only worked in LNG 1.4.0 with a fix 
-		 * (here: the formula I posted on Github).
-		 */
-		//variables 1-10
-		FormulaFactory f = new FormulaFactory();
-		Variable ten = f.variable("10");
-		Variable one = f.variable("1");
-		Variable two = f.variable("2");
-		Variable three = f.variable("3");
-		Variable four = f.variable("4");
-		Variable five = f.variable("5");
-		Variable six = f.variable("6");
-		Variable seven = f.variable("7");
-		Variable eight = f.variable("8");
-		Variable nine = f.variable("9");
-		//literals
-		Literal not10 = f.literal("10", false);
-		Literal not1 = f.literal("1", false);
-		Literal not2 = f.literal("2", false);
-		Literal not3 = f.literal("3", false);
-		Literal not4 = f.literal("4", false);
-		Literal not5 = f.literal("5", false);
-		Literal not6 = f.literal("6", false);
-		Literal not7 = f.literal("7", false);
-		Literal not8 = f.literal("8", false);
-		Literal not9 = f.literal("9", false);
-		//minterms
-		Formula minterm1 = f.and(not5, not4, three, two, one);	
-		Formula minterm2 = f.and(not3, not7, not2, one);
-		Formula minterm3 = f.and(not6, one, not3, two);
-		Formula minterm4 = f.and(not9, six, eight, not1);
-		Formula minterm5 = f.and(three, four, two, one);
-		Formula minterm6 = f.and(not2, seven, one);
-		Formula minterm7 = f.and(not10, not8, not1);
-		//final formula
-		Formula formula = f.or(minterm1, minterm2, minterm3, minterm4, minterm5, minterm6, minterm7);		
-		System.out.println("Formula to be minimized:");
-		System.out.println(formula);
-		System.out.println("~5 & ~4 & 3 & 2 & 1 | ~3 & ~7 & ~2 & 1 | ~6 & 1 & ~3 & 2 | ~9 & 6 & 8 & ~1 | 3 & 4 & 2 & 1 | ~2 & 7 & 1 | ~10 & ~8 & ~1");
+		// current number of input nodes; used for setting their position
+		int number_inputs = 0;
+
+		// current count of the connection; used for setting the connection ids
+		int number_connections = 0;
+
+		//get a basic CEG from general method
+		CEGModel ceg = createBasicCeg();
 		
-		/*
-		 * Minimization
-		 */
-		//without fix
-		System.out.println("Minimized formula (without fix):");
-		System.out.println(QuineMcCluskeyAlgorithm.compute(formula));
-		//with fix
-		System.out.println("Minimized formula (with fix):");
-		formula = formula.transform(new CNFFactorization());
-		System.out.println(QuineMcCluskeyAlgorithm.compute(formula));
-		System.out.println();
-	}
+		// changing the operator of the output node to AND
+		IContentElement out = ceg.getContents().get(0);
+		AssertUtil.assertTrue(out instanceof CEGNode);
+		((CEGNode) out).setType(NodeType.AND);
 
-	// Ab hier: BDD-Reduktion (noch in Arbeit)
+		// iterate through all literals of the minterm
+		Iterator<Formula> and_it = minterm.iterator();
+		while (and_it.hasNext()) {
+			Formula f = and_it.next();
+			AssertUtil.assertTrue(f.type() == LITERAL);
+			Literal l = (Literal) f;
 
-	public BDDModel reduceBDD(BDDModel model) {
-		setup(model);
-
-		// includes nodes that are part of the reduced BDD, ID corresponds to
-		// the position in the array
-		IModelNode[] subgraph = new IModelNode[nodes.size()];
-
-		// TODO the actual reduction
-
-		// iterate through the model's elements: each BDDConnection is deleted
-		Iterator<IContentElement> it = model.getContents().iterator();
-		while (it.hasNext()) {
-			IContentElement current_obj = it.next();
-			if (current_obj instanceof BDDConnection) {
-				model.getContents().remove(current_obj);
+			// in node for this variable has not been created yet
+			if (!name2node.containsKey(l.name())) {
+				CEGNode innode = RequirementsFactory.eINSTANCE.createCEGNode();
+				int index = Integer.parseInt(l.name());
+				System.out.println(index);
+				innode.setId("node-in-" + index);
+				innode.setName("node-in-" + index);
+				Pair<String, String> pair = indexmap.getPairFor(index);
+				innode.setVariable(pair.getLeft());
+				innode.setCondition(pair.getRight());
+				name2node.put(l.name(), innode);
+				innode.setX(45);
+				innode.setY(90 + (90 * number_inputs));
+				ceg.getContents().add(innode);
+				number_inputs++;
 			}
+
+			// create connection from this in node to outnode
+			CEGConnection in2out = RequirementsFactory.eINSTANCE.createCEGConnection();
+			number_connections++;
+			in2out.setId("conn-" + number_connections);
+			in2out.setName("conn-" + number_connections);
+			in2out.setSource(name2node.get(l.name()));
+			in2out.setTarget((CEGNode) out);
+			if (l.phase() == false) {
+				// negated literal (e.g. ~A) -> negated connection
+				in2out.setNegate(true);
+			}
+
+			ceg.getContents().add(in2out);
 		}
-
-		// set the new connections using the array
-		for (int i = 0; i < subgraph.length; i++) {
-			RecNode current = act2rec.get(subgraph[i]);
-			if (current.getHigh() != -1) {
-				// high connection needs to be generated
-				BDDConnection conn_h = BddFactory.eINSTANCE.createBDDConnection();
-				conn_h.setSource(subgraph[i]);
-				conn_h.setTarget(subgraph[current.getHigh()]);
-				model.getContents().add(conn_h);
-			}
-
-			if (current.getLow() != -1) {
-				// low connection needs to be generated (this one is negated)
-				BDDConnection conn_l = BddFactory.eINSTANCE.createBDDConnection();
-				conn_l.setSource(subgraph[i]);
-				conn_l.setTarget(subgraph[current.getLow()]);
-				conn_l.setNegate(true);
-				model.getContents().add(conn_l);
-			}
-		}
-
-		// get rid of unconnected nodes
-		nodes.stream()
-				.filter(node -> (node.getIncomingConnections().isEmpty() && node.getOutgoingConnections().isEmpty()))
-				.forEach(node -> {
-					model.getContents().remove(node);
-				});
-
-		return model;
-	}
+		return ceg;
+	} //end of andCase
 }

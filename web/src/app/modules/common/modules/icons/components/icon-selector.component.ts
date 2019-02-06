@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ISpecmateModelObject } from '../../../../../model/ISpecmateModelObject';
 import { Folder } from '../../../../../model/Folder';
 import { CEGModel } from '../../../../../model/CEGModel';
+import { BDDModel } from '../../../../../model/BDDModel';
 import { Process } from '../../../../../model/Process';
 import { Requirement } from '../../../../../model/Requirement';
 import { TestSpecification } from '../../../../../model/TestSpecification';
@@ -32,6 +33,10 @@ export class IconSelector implements OnInit {
 
     get isCEGModel() {
         return Type.is(this.model, CEGModel);
+    }
+
+    get isBDDModel() {
+        return Type.is(this.model, BDDModel);
     }
 
     get isNonRegressionRequirement() {

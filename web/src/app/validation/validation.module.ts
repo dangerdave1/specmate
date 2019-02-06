@@ -3,6 +3,9 @@ import { DuplicateNodeValidator } from './ceg/duplicate-node-validator';
 import { DuplicateIOVariableValidator } from './ceg/duplicate-io-variable-validator';
 import { EmptyModelValidator } from './ceg/empty-model-validator';
 import { SingleNodesValidator } from './ceg/single-nodes-validator';
+import {BDDEmptyModelValidator} from './bdd/empty-model-validator';
+import {MultipleEntriesValidator} from './bdd/multiple-entries-validator';
+import {WrongConnsValidator} from './bdd/wrong-conns-validator';
 import { EndNodeValidator } from './process/end-node-validator';
 import { HasStepsValidator } from './process/has-steps-validator';
 import { MissingConditionValidator } from './process/missing-condition-validator';
@@ -30,6 +33,9 @@ import { DecisionMultipleOutgoingConnectionsValidator } from './process/decision
     DuplicateIOVariableValidator,
     EmptyModelValidator,
     SingleNodesValidator,
+    BDDEmptyModelValidator,
+    MultipleEntriesValidator,
+    // WrongConnsValidator,
     EndNodeValidator,
     EndNodeNoOutgoingConnectionValidator,
     HasStepsValidator,

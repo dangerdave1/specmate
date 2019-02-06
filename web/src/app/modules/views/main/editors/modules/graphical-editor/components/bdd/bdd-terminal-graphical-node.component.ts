@@ -19,7 +19,7 @@ export class BDDTerminalGraphicalNode extends DraggableElementBase<BDDTerminalNo
 
     public get dimensions(): {width: number, height: number} {
         return {
-            width: Config.CEG_NODE_WIDTH,
+            width: Config.CEG_NODE_HEIGHT,
             height: Config.CEG_NODE_HEIGHT
         };
     }
