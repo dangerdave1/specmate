@@ -35,7 +35,7 @@ import { DecisionMultipleOutgoingConnectionsValidator } from './process/decision
     SingleNodesValidator,
     BDDEmptyModelValidator,
     MultipleEntriesValidator,
-    // WrongConnsValidator,
+    WrongConnsValidator,
     EndNodeValidator,
     EndNodeNoOutgoingConnectionValidator,
     HasStepsValidator,

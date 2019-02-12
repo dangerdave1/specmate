@@ -1,6 +1,6 @@
 {
 	"Action": "Aktion",
-	"BDDModels": "Binare Entscheidungsdiagramme",
+	"BDDModels": "Binäre Entscheidungsdiagramme",
 	"Cause-EffectModels": "Ursache-Wirkungs-Modelle",
 	"Changed": "Verändert",
 	"ChangedTo": "geändert nach",
@@ -57,7 +57,7 @@
 	"addInputColumn": "Eingabespalte hinzufügen",
 	"addOutputColumn": "Ausgabespalte hinzufügen",
 	"attentionNumberOfTestCasesWillBeDeleted": "Achtung: {{num}} Testfälle werden gelöscht!",
-	"bddModel": "Binäre Entscheidungsdiagram",
+	"bddModel": "Binäres Entscheidungsdiagramm",
 	"cancel": "Abbrechen",
 	"causeEffectGraph": "Ursache-Wirkungs-Diagramm",
 	"chooseLanguage": "Sprache ändern",
